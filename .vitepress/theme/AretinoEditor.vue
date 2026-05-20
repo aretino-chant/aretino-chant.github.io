@@ -83,14 +83,12 @@ const svg = computed(() => {
   try {
     error.value = null
     const cw = containerWidth.value
-    // The renderer inflates lyricSize by max(0.75, cw/750) for large virtual
-    // canvases that are then scaled down via CSS. Since we pass the actual
-    // container width and the SVG is displayed 1:1, we counter-act that factor
-    // to keep the visual font size constant across different page widths.
-    const lyricScale = Math.max(0.5, cw / 750)
+    // make the preview responsive
+    const ZOOM = 1.3;
+    const width = Math.max(120, Math.round(cw / ZOOM));
+
     return renderAretino(parseAretino(source.value), {
-      lyricSize: 13 / lyricScale,
-      canvasWidth: cw*1.5,
+      width, zoom: ZOOM
     })
   } catch (e) {
     error.value = e.message

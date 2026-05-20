@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, useSlots } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, useSlots } from 'vue'
 import { parseAretino, renderAretino } from '@aretino-chant/core'
 
 const props = defineProps({
@@ -53,8 +53,27 @@ const error = ref(null)
 // in the browser but falls back to estimation under SSR, so rendering during
 // SSR would produce a different SVG and trigger a hydration mismatch.
 const mounted = ref(false)
+const containerWidth = ref(1920)
+const outputEl = ref(null)
+let resizeObserver = null
+
 onMounted(() => {
   mounted.value = true
+  if (outputEl.value) {
+    const w = outputEl.value.getBoundingClientRect().width
+    if (w > 0) containerWidth.value = w
+    resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width
+        if (w > 0) containerWidth.value = w
+      }
+    })
+    resizeObserver.observe(outputEl.value)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver) resizeObserver.disconnect()
 })
 
 const rows = computed(() => Math.max(3, source.value.split('\n').length))
@@ -63,7 +82,16 @@ const svg = computed(() => {
   if (!mounted.value) return ''
   try {
     error.value = null
-    return renderAretino(parseAretino(source.value))
+    const cw = containerWidth.value
+    // The renderer inflates lyricSize by max(0.75, cw/750) for large virtual
+    // canvases that are then scaled down via CSS. Since we pass the actual
+    // container width and the SVG is displayed 1:1, we counter-act that factor
+    // to keep the visual font size constant across different page widths.
+    const lyricScale = Math.max(0.5, cw / 750)
+    return renderAretino(parseAretino(source.value), {
+      lyricSize: 13 / lyricScale,
+      canvasWidth: cw*1.5,
+    })
   } catch (e) {
     error.value = e.message
     return ''
@@ -80,7 +108,7 @@ const svg = computed(() => {
       autocapitalize="off"
       autocomplete="off"
     ></textarea>
-    <div class="output" v-html="svg"></div>
+    <div ref="outputEl" class="output" v-html="svg"></div>
     <div v-if="error" class="error">{{ error }}</div>
   </div>
 </template>

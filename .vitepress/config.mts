@@ -11,6 +11,10 @@ export default defineConfig({
   lastUpdated: true,
   srcExclude: ['**/README.md'],
 
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+  ],
+
   markdown: {
     // Turn every ```aretino fenced block into an interactive <AretinoEditor>.
     // Source is base64-encoded so multi-line content and special characters

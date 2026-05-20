@@ -582,40 +582,6 @@ w: Lord, have mer-cy up-on us!
 - Blank lines **start a new section**.
 - Text is aligned under the bar line.
 
-## 18. Using the Editor
-
-The Aretino format is available in the [score editor](/score/preview) — select the **Aretino** option in the format chooser. A live preview appears below the source.
-
-### Elements of the Settings Bar
-
-| Control | What it adjusts |
-|---|---|
-| **Zoom** | The preview zoom level (display only). |
-| **Score size** | The physical size of the staff system in points (default 100). |
-| **Text size** | The font size of the liturgical text. |
-| **Text font** | Pre-provided, freely usable font families. |
-| **Page ratio** | The aspect ratio of the exported page (`auto` = data-size based). |
-| **Line spacing** | Adjusts the vertical spacing between staff systems (0 = default). |
-
-### Page Break
-
-If the page ratio is set to `16:9`, `4:3`, or `1:1`, you can start a new page (slide) in the source with the `%pagebreak` instruction. The break point is only active for the corresponding ratio:
-
-| Instruction | When does it break? |
-|---|---|
-| `%pagebreak` | at every fixed ratio |
-| `%pagebreak169` | only at 16:9 ratio |
-| `%pagebreak43` | only at 4:3 ratio |
-| `%pagebreak11` | only at 1:1 ratio |
-
-In `auto` mode, all `%pagebreak` lines are ignored — the score appears as a single unit.
-
-### Export
-
-The score can be exported in SVG and PNG format and also copied as an image. This makes it possible to produce professional print output in word processors and desktop publishing software.
-
----
-
 ## 19. Common Mistakes and Tips
 
 ### "The ligature doesn't join up"

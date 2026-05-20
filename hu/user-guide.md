@@ -710,42 +710,6 @@ w: ~ ~ ~ † (*)
 
 ---
 
-## 18. A szerkesztő használata
-
-Az Aretino formátum a [kottaszerkesztőben](/score/preview) elérhető — a formátumválasztóban
-válaszd ki az **Aretino** opciót. Élő előnézet jelenik meg a forrás alatt.
-
-### A beállító-sáv elemei
-
-| Vezérlő | Mit állít? |
-|---|---|
-| **Nagyítás** | Az előnézet zoom-szintje (csak megjelenítés). |
-| **Kotta méret** | A vonalrendszer fizikai mérete pontban (alapérték 100). |
-| **Szöveg méret** | A liturgikus szöveg betűmérete. |
-| **Szöveg betűtípusa** | Előre megadott, szabadon felhasználható betűtípusok |
-| **Oldalarány** | Az exportált oldal képaránya (`auto` = adat-méret szerinti). |
-| **Sorok távolsága** | A kottarendszerek közötti függőleges szóköz állítása (0 = alapértelmezett). |
-
-### Oldaltörés
-
-Ha az oldalarányt `16:9`, `4:3` vagy `1:1` értékre állítod, a forrásban `%pagebreak` utasítással
-új oldalt (diát) kezdhetsz. A töréspont csak a megfelelő arányhoz érvényes:
-
-| Utasítás | Mikor törés? |
-|---|---|
-| `%pagebreak` | minden rögzített aránynál |
-| `%pagebreak169` | csak 16:9 arányban |
-| `%pagebreak43` | csak 4:3 arányban |
-| `%pagebreak11` | csak 1:1 arányban |
-
-`auto` módban az összes `%pagebreak` sor figyelmen kívül marad — a kotta egyetlen egységként jelenik meg.
-
-### Export
-
-A kotta SVG és PNG formátumban exportálható és képként másolható is. Így szöveg- és kiadványszerkesztőben akár professzionális nyomtatással is előállítható.
-
----
-
 ## 19. Gyakori hibák és tippek
 
 ### "A ligatúra nem áll össze"

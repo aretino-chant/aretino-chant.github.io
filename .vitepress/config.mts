@@ -11,10 +11,6 @@ export default defineConfig({
   lastUpdated: true,
   srcExclude: ['**/README.md'],
 
-  // /score/preview is the full editor hosted on cantores.hu, not part of this
-  // docs site. The guides (copied from upstream) link to it intentionally.
-  ignoreDeadLinks: [/^\/score\/preview/],
-
   markdown: {
     // Turn every ```aretino fenced block into an interactive <AretinoEditor>.
     // Source is base64-encoded so multi-line content and special characters
@@ -38,7 +34,7 @@ export default defineConfig({
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: CODE_REPO }],
     editLink: {
-      pattern: `${DOCS_REPO}/edit/main/:path`,
+      pattern: `${DOCS_REPO}/edit/master/:path`,
       text: 'Edit this page on GitHub',
     },
     footer: {
@@ -89,7 +85,7 @@ export default defineConfig({
           },
         ],
         editLink: {
-          pattern: `${DOCS_REPO}/edit/main/:path`,
+          pattern: `${DOCS_REPO}/edit/master/:path`,
           text: 'Oldal szerkesztése a GitHubon',
         },
       },

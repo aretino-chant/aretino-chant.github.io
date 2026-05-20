@@ -11,9 +11,7 @@ w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 This guide introduces the **Aretino** notation format step by step, with examples.
 The format/layout algorithm may still change; we welcome your feedback!
 
-You can try and practice the format on this page. The full-featured editor with all settings is available on our [Score Editor](/score/preview) page.
-
-The Aretino notation format is freely usable; please link to our website in public materials: [Cantores.hu](https://cantores.hu)
+The Aretino notation format is freely usable; please link to our website in public materials: [aretino-chant.github.io](https://aretino-chant.github.io)
 
 ---
 
@@ -650,9 +648,3 @@ The score can be exported in SVG and PNG format and also copied as an image. Thi
 **Cause:** a blank line **starts a new section** in the parser.  
 **Solution:** if you don't want a new section, don't leave a blank line between the melody and text.
 
-## 20. Feedback and Bug Reports
-
-The Aretino format and the renderer software are developed by volunteer developers as part of the Szent József Hackathon.
-The source code is freely available on [GitHub](https://github.com/szentjozsefhackathon/cantores), where bugs can be reported and development suggestions are also welcome.
-
-If you have questions or suggestions, write to us at [info@cantores.hu](mailto:info@cantores.hu) or on our [Facebook](https://www.facebook.com/people/Cantoreshu/61588419360930/) page.

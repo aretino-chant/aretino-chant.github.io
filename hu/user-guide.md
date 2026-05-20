@@ -11,9 +11,7 @@ w: Al-le-lu-ja, al-le-lu-ja, al-le-lu-ja.
 Ez az útmutató lépésről lépésre, példákkal mutatja be az **Aretino** kottaformátum használatát.
 A formátum/tördelési algoritmus még változhat, a visszajelzéseket köszönettel fogadjuk!
 
-Ezen az oldalon kipróbálható, gyakorolható a formátum használata. Az összes beállítási lehetőséggel ellátott szerkesztő a [Kottaszerkesztő](/score/preview) oldalunkon található.
-
-Az Aretino kottaformátum szabadon felhasználható, kérjük, nyilvános anyagokban hivatkozzanak honlapunkra: [Cantores.hu](https://cantores.hu)
+Az Aretino kottaformátum szabadon felhasználható, kérjük, nyilvános anyagokban hivatkozzanak honlapunkra: [aretino-chant.github.io](https://aretino-chant.github.io)
 
 ---
 
@@ -789,9 +787,3 @@ illesztés.
 **Megoldás:** ha nem akarsz új szakaszt, ne hagyj üres sort a dallam
 és szöveg között.
 
-## 20. Visszajelzés, hibajelentés
-
-Az Aretino formátumot és a megjelenítő szoftvert a Szent József Hackathon keretében, önkéntes fejlesztők készítik.
-A forráskód szabadon elérhető a [GitHubon](https://github.com/szentjozsefhackathon/cantores), ahol hibákat is lehet jelenteni, illetve fejlesztési javaslatokat is szívesen fogadunk.
-
-Ha kérdésed/javaslatod van, írj nekünk az [info@cantores.hu](mailto:info@cantores.hu) címre, vagy a [Facebook](https://www.facebook.com/people/Cantoreshu/61588419360930/) oldalunkon.

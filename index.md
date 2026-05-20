@@ -5,21 +5,36 @@ layout: home
 hero:
   name: "Aretino Chant"
   text: "A text format for Gregorian chant"
-  tagline: My great project tagline
+  tagline: Write chant in plain text, render it as notation in the browser.
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: User guide
+      link: /user-guide
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Cheatsheet
+      link: /cheatsheet
+    - theme: alt
+      text: Magyar útmutató
+      link: /hu/user-guide
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Position is pitch
+    details: A letter code names the staff line or space, so the source stays readable and diff-friendly.
+  - title: Semantic markers
+    details: Mora, episema, ictus, liquescence and ligatures are suffix characters — not magic glyph files.
+  - title: Renders in the browser
+    details: The parser and SVG renderer run client-side. Every example on this site is a live, editable editor.
 ---
 
+## Try it
+
+Edit the source below — the notation updates as you type.
+
+```aretino
+(g2) g h i g. hi h g e_d_ , g hi a'g g. ||
+w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
+```
+
+Aretino is a text format for notating Gregorian chant, following the Hungarian
+Catholic practice of Dobszay László and Szendrei Janka. The reference parser and
+renderer are published as [`@aretino-chant/core`](https://www.npmjs.com/package/@aretino-chant/core).

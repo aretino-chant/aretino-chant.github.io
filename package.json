@@ -16,6 +16,6 @@
     "vitepress": "^1.6.4"
   },
   "dependencies": {
-    "@aretino-chant/core": "^0.2.0"
+    "@aretino-chant/core": "^0.3.0"
   }
 }

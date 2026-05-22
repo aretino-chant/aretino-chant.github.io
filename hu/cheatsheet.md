@@ -37,17 +37,20 @@
 
 | Módosítójelek és előjegyzés | |
 |---|---|
-| `(ibx)` | b (a betű = magasság, pl. `ebx`, `fbx`) |
-| `(iby)` | feloldójel |
-| `(ib#)` | kereszt |
-| `(K:ibx jb#)` | előjegyzés (minden sor elején ismétlődik) |
+| `(ib)` | b (a betű = magasság, pl. `eb`, `fb`) |
+| `(in)` | feloldójel |
+| `(i#)` | kereszt |
+| `(K:ib j#)` | előjegyzés (minden sor elején ismétlődik) |
 
 | Szöveg | |
 |---|---|
 | `w: Ky-ri-e` | szövegsor (kötőjel = szótaghatár) |
+| `W: Zsoltárvers szövege...` | verssor (szabadon tördelve, nem hanghoz igazítva) |
 | több `w:` sor | több versszak |
 | `~` | Több szó összekötése egy hanghoz |
 | `~~` | Verszakszám kötése (pl. `1.~~Ky-ri-e`) |
+| `[szöveg]` `<szöveg>` `{szöveg}` | aláhúzott, dőlt, félkövér |
+| `\red{szöveg}` `\color:green{szöveg}` | színezett szöveg |
 
 
 | Fejléc | Jelentés |

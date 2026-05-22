@@ -32,7 +32,7 @@ Az Aretino kottaformátum szabadon felhasználható, kérjük, nyilvános anyago
 13. [Vonalak és tagolójelek](#13-vonalak-és-tagolójelek)
 14. [Sorvégi kiegyenlítés, manuális elosztás és sortörés](#14-sorvégi-kiegyenlítés-manuális-elosztás-és-sortörés)
 15. [Módosítójelek (b, kereszt, feloldó)](#15-módosítójelek)
-16. [Szöveg és versszakok](#16-szöveg-és-versszakok)
+16. [Szöveg, versszakok és verssorok](#16-szöveg-versszakok-és-verssorok)
 17. [Hosszabb példák](#17-hosszabb-példák)
 18. [A szerkesztő használata](#18-a-szerkesztő-használata)
 19. [Gyakori hibák és tippek](#19-gyakori-hibák-és-tippek)
@@ -59,7 +59,7 @@ TTF betűkészlet szellemi utódja, de attól független, szemantikus formátum.
 |---|---|
 | **Pozíció = hangmagasság** | A betűkód határozza meg, melyik vonalon/vonalközben van a hang. |
 | **Szemantikus jelölők** | Az episema, mora stb. utótag-karakterek, nem mágikus glyph-fájlok. |
-| **Külön sor a szövegnek** | A `w:` előtagú sor önállóan értelmezhető. |
+| **Külön sor a szövegnek** | A `w:` (szótagolt) és `W:` (verssor) előtagú sor önállóan értelmezhető. |
 
 ---
 
@@ -291,7 +291,7 @@ A három fő építőelem:
 1. **Fejléc** — elhagyható, `;kulcs: érték` sorok, `%%` zárja.
 2. **Dallam-sor** — hangok, ligatúrák, vonalak. Az első zárójeles elem
    a kulcs (`(g2)`, `(f4)`, `(c3)`).
-3. **Szöveg-sor** — `w:` előtaggal, közvetlenül a dallam alatt.
+3. **Szöveg-sor** — `w:` (szótagolt) vagy `W:` (verssor) előtaggal, közvetlenül a dallam alatt.
 
 ---
 
@@ -490,7 +490,7 @@ lehet.
 Ha a szövegben zárójelben szerepel valami, azt a következő ütemvonal alá rendezzük, a lenti példában a `(*)` jelöli, hogy a rövid vonal alá kell írni egy * jelet.
 
 ```aretino
-(g2) (K:fb#) h h h f h i j ih h_ , h h h f g hg e d. d. ; f f f g e g f_ , e d e e e g f d. d. || (Z) ht i ht g ht ||
+(g2) (K:f#) h h h f h i j ih h_ , h h h f g hg e d. d. ; f f f g e g f_ , e d e e e g f d. d. || (Z) ht i ht g ht ||
 w: Men-je-tek, és vi-gyé-tek hí-rül: (*) föl-tá-madt az Úr, al-le-lu-ja! Néz-zé-tek ü-res sír-ját, a-hol nyu-go-dott, al-le-lu-ja!
 ```
 <small>Forrás: A húsvéti Szent Három Nap liturgiája, © Bencés Kiadó</small>
@@ -544,20 +544,22 @@ sortörést.
 
 ## 15. Módosítójelek
 
+1.0-s verziótól a módosítójelek tokenjei: `b / n / #`.
+
 | Forrás | Név | Jelentés |
 |---|---|---|
-| `(bx)` | aktuális b | egyszeri b a `i` hang magasságán (3. vonal, B-hang) |
-| `(by)` | feloldó | a megelőző alteráció feloldása |
-| `(b#)` | kereszt | félhanggal emelt |
+| `(b)` | aktuális b | egyszeri b a `i` hang magasságán (3. vonal, B-hang) |
+| `(n)` | feloldó | a megelőző alteráció feloldása |
+| `(#)` | kereszt | félhanggal emelt |
 
-A `b` előtt a hang betűje adja meg a magasságot: `(ebx)` = b az E hangon,
-`(fbx)` = b az F-en stb. Ha csak `(bx)`, akkor a B-hangon jelenik meg
+A módosítójel előtt a hang betűje adja meg a magasságot: `(eb)` = b az E hangon,
+`(fb)` = b az F-en stb. Ha csak `(b)`, akkor a B-hangon jelenik meg
 (3. vonal, `i` magasság).
 
 ### Példa
 
 ```aretino
-(g2) (ibx) (sp) (iby) (sp) (ib#) (sp) : h (ibx) hih fgh. g(ibx)hih
+(g2) (ib) (sp) (in) (sp) (i#) (sp) : h (ib) hih fgh. g(ib)hih
 ```
 
 A módosítójeleket a következő neumával egyben tartjuk. (Neumán belül is használható módosítójel.)
@@ -570,25 +572,25 @@ csak a darab elején van leírva.
 
 | Forrás | Jelentés |
 |---|---|
-| `(K:bx)` | b-előjegyzés a 3. vonalon (B-hang, `i` magasság) |
-| `(K:ebx)` | b az E hangon |
-| `(K:bx ebx)` | több módosítójel — szóközzel elválasztva |
+| `(K:b)` | b-előjegyzés a 3. vonalon (B-hang, `i` magasság) |
+| `(K:eb)` | b az E hangon |
+| `(K:b eb)` | több módosítójel — szóközzel elválasztva |
 | `(K:)` | előjegyzés törlése |
 
 ```aretino
 ;title: Példa előjegyzéssel
 %%
-(g2) (K:mb# jb# ) d e f g h i j k (||)
+(g2) (K:m# j#) d e f g h i j k (||)
 ```
 
-Az `(K:bx)` minden új sor elején megismétlődik. Egy újabb `(K:…)` token
+Az `(K:b)` minden új sor elején megismétlődik. Egy újabb `(K:...)` token
 megváltoztatja az előjegyzést onnantól (helyben is megjelenik, és a
 következő sorok elején is az új jel szerepel). `(K:)` törli az
 előjegyzést.
 
 ---
 
-## 16. Szöveg és versszakok
+## 16. Szöveg, versszakok és verssorok
 
 ### Szótagok illesztése
 
@@ -603,7 +605,7 @@ egy különálló punctum (pl. `d` szóközökkel a két oldalán) szintén egy
 egységnek számít, és egy szótag jut rá.
 
 ```aretino
-(g2) dghfe ed , g hg ghj h hghgfg(ibx)ihig fhgfgfe e:
+(g2) dghfe ed , g hg ghj h hghgfg(ib)ihig fhgfgfe e:
 w: Hús-vét ün-ne-pe e-lőtt tör-tént:
 ```
 
@@ -617,6 +619,17 @@ A dallamsor alá több `w:` sor is írható — minden új sor egy versszak:
 (g2) d c d f g f e d. ,
 w: Vic-ti-mae pas-cha-li lau-des
 w: A hús-vé-ti szent Bá-rány-nak
+```
+
+### Zsoltár- és verssorok (`W:`)
+
+A `W:` sorokat zsoltáros, szabadon folyó versszöveghez használd, amikor a szöveg ne hangonként legyen igazítva.
+
+```aretino
+(g2) g hi h g e_d_ , g hi a'g g. ||
+w: Al-le-lu-ja, * al-le-lu-ja.
+W: Dicsőség az Atyának és Fiúnak * és Szentlélek Istennek.
+W: Miképpen kezdetben, most és mindenkor * és mindörökkön örökké. Ámen.
 ```
 
 ### Több szó ugyanarra a hangra (`~`)
@@ -653,18 +666,21 @@ c d e f
 w: R/ V/ + ++
 ``` 
 
-### Szövegformázás (dőlt, félkövér)
+### Szövegformázás (aláhúzott, dőlt, félkövér, színezett)
 
-A szöveges sorokba egyszerű formázó jelöléseket is tehetünk:
+A `w:` és `W:` sorokba egyszerű formázó jelöléseket is tehetünk:
 
-- `<i>szöveg</i>` — *dőlt* (italic)
-- `<b>szöveg</b>` — **félkövér** (bold)
+- `[szöveg]` — <ins>aláhúzott</ins>
+- `<szöveg>` — *dőlt*
+- `{szöveg}` — **félkövér**
+- `\red{szöveg}` — piros szín
+- `\color:green{szöveg}` — egyedi szín (itt: zöld)
 
 A formázás tetszőleges szótagokra alkalmazható, és a szótaghatáron át is érvényes marad, amíg a záró tag meg nem jelenik.
 
 ```aretino
 (g2) g h i g. hi h g e_d_ , g hi a'g g. ||
-w: <b>℟.:</b>~~Al-le-lu-ja, <i>al-le-lu-ja</i>, al-le-lu-ja.
+w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ```
 
 ---
@@ -676,14 +692,14 @@ w: <b>℟.:</b>~~Al-le-lu-ja, <i>al-le-lu-ja</i>, al-le-lu-ja.
 ```aretino
 ;cím: Uram, irgalmazz (XVI.)
 %%
-(g2) (K:ibx) h h h g h fg h ||
-w: U-ram, ir-gal-mazz né-künk! (<i>3x</i>)
+(g2) (K:ib) h h h g h fg h ||
+w: U-ram, ir-gal-mazz né-künk! (<3x>)
 
 h h h g h fg h ||
-w: Krisz-tus, ke-gyel-mezz né-künk! (<i>3x</i>)
+w: Krisz-tus, ke-gyel-mezz né-künk! (<3x>)
 
 h h h g h fg h ||
-w: U-ram, ir-gal-mazz né-künk! (<i>2x</i>)
+w: U-ram, ir-gal-mazz né-künk! (<2x>)
 
 h g i g f gh h ||
 w: U-ram, ir-gal-mazz né-künk!
@@ -700,7 +716,7 @@ w: U-ram, ir-gal-mazz né-künk!
 ```aretino
 ;title: Hints meg engem
 %%
-(g2) (K:mb#) d e g f gh h , i j i h i h ge d | d e gfgh h , i g ge ggfg h g e d d ||
+(g2) (K:m#) d e g f gh h , i j i h i h ge d | d e gfgh h , i g ge ggfg h g e d d ||
 w: Hints meg en-gem U-ram, i-zsóp-pal és meg-tisz-tu-lok, moss meg en-gem, és fe-hé-rebb le-szek a hó-nál.
 
 f g ht gs ht g h i- gs g | ht i h gs- gf e ||

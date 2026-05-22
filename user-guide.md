@@ -32,7 +32,7 @@ The Aretino notation format is freely usable; please link to our website in publ
 13. [Bar Lines and Dividers](#13-bar-lines-and-dividers)
 14. [Line-End Justification, Manual Spacing, and Line Breaks](#14-line-end-justification-manual-spacing-and-line-breaks)
 15. [Accidentals (flat, sharp, natural)](#15-accidentals)
-16. [Text and Stanzas](#16-text-and-stanzas)
+16. [Text, Stanzas, and Verses](#16-text-stanzas-and-verses)
 17. [Longer Examples](#17-longer-examples)
 18. [Using the Editor](#18-using-the-editor)
 19. [Common Mistakes and Tips](#19-common-mistakes-and-tips)
@@ -56,7 +56,7 @@ The name alludes to Guido d'Arezzo (in Latin *Guido Aretinus*) — the spiritual
 |---|---|
 | **Position = pitch** | The letter code determines which line or space the note occupies. |
 | **Semantic markers** | Episema, mora, etc. are suffix characters, not magic glyph files. |
-| **Separate line for text** | The `w:`-prefixed line is independently meaningful. |
+| **Separate text/verse lines** | `w:` lyric lines and `W:` verse lines are independently meaningful. |
 
 ---
 
@@ -219,7 +219,7 @@ The three main building blocks:
 
 1. **Header** — optional; `;key: value` lines, closed by `%%`.
 2. **Melody line** — notes, ligatures, bar lines. The first parenthesized element is the clef (`(g2)`, `(f4)`, `(c3)`).
-3. **Text line** — prefixed with `w:`, directly beneath the melody.
+3. **Text line** — lyric (`w:`) or verse (`W:`), directly beneath the melody.
 
 ---
 
@@ -449,18 +449,20 @@ Use the `(z)` form where the end of a phrase naturally calls for a line break.
 
 ## 15. Accidentals
 
+Since v1.0, accidental tokens use `b / n / #`.
+
 | Source | Name | Meaning |
 |---|---|---|
-| `(bx)` | flat | a single flat at the height of the `i` note (line 3, B note) |
-| `(by)` | natural | cancels the preceding alteration |
-| `(b#)` | sharp | raised by a semitone |
+| `(b)` | flat | a single flat at the height of the `i` note (line 3, B note) |
+| `(n)` | natural | cancels the preceding alteration |
+| `(#)` | sharp | raised by a semitone |
 
-The letter before `b` gives the pitch height: `(ebx)` = flat on E, `(fbx)` = flat on F, etc. If just `(bx)`, it appears on the B note (line 3, `i` height).
+The letter before the accidental gives the pitch height: `(eb)` = flat on E, `(fb)` = flat on F, etc. If just `(b)`, it appears on the B note (line 3, `i` height).
 
 ### Example
 
 ```aretino
-(g2) (ibx) (sp) (iby) (sp) (ib#) (sp) : h (ibx) hih fgh. g(ibx)hih
+(g2) (ib) (sp) (in) (sp) (i#) (sp) : h (ib) hih fgh. g(ib)hih
 ```
 
 Accidentals are kept together with the following neume. (Accidentals may also be used within a neume.)
@@ -471,22 +473,22 @@ The key signature is placed after the clef. The renderer automatically displays 
 
 | Source | Meaning |
 |---|---|
-| `(K:bx)` | flat key signature on line 3 (B note, `i` height) |
-| `(K:ebx)` | flat on the E note |
-| `(K:bx ebx)` | multiple accidentals — separated by spaces |
+| `(K:b)` | flat key signature on line 3 (B note, `i` height) |
+| `(K:eb)` | flat on the E note |
+| `(K:b eb)` | multiple accidentals — separated by spaces |
 | `(K:)` | cancel key signature |
 
 ```aretino
 ;title: Example with Key Signature
 %%
-(g2) (K:mb# jb# ) d e f g h i j k (||)
+(g2) (K:m# j#) d e f g h i j k (||)
 ```
 
-The `(K:bx)` is repeated at the beginning of each new line. A subsequent `(K:…)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
+The `(K:b)` is repeated at the beginning of each new line. A subsequent `(K:...)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
 
 ---
 
-## 16. Text and Stanzas
+## 16. Text, Stanzas, and Verses
 
 ### Syllable Alignment
 
@@ -505,6 +507,19 @@ Multiple `w:` lines can be written under the melody line — each new line is a 
 (g2) d c d f g f e d. ,
 w: Vic-ti-mae pas-cha-li lau-des
 w: Praise to the Pas-chal Vic-tim now.
+```
+
+### Psalm Verses (`W:`)
+
+Use `W:` for psalm-verse style text that should flow freely instead of syllable-by-syllable note alignment. It automatically indents explicit and automatic line breaks. Formatting directives can be used as well.
+
+```aretino
+(g2) g hi h g e_d_ , g hi a'g g. ||
+w: Al-le-lu-ia, * al-le-lu-ia.
+W: Glory to the {Father} and to the [Son] * 
+and to the Holy Spirit.
+W: As it was in the beginning, is now and ever shall be * 
+world without end. Amen.
 ```
 
 ### Multiple Words on One Note (`~`)
@@ -537,21 +552,23 @@ Some characters are rendered specially.
 
 ```aretino
 c d e f
-w: R/ V/ + ++
+w: \R \V + ++
 ``` 
 
-### Text Formatting (italic, bold)
+### Text Formatting
 
-Simple formatting marks can be placed in text lines:
+Simple formatting marks can be placed in `w:` and `W:` lines:
 
-- `<i>text</i>` — *italic*
-- `<b>text</b>` — **bold**
+- `[text]` — <ins>underline</ins>
+- `<text>` — *italic*
+- `{text}` — **bold**
+- `\red{text}` - red colored text
+- `\color:green{text}` green colored text
 
-The formatting can be applied to any syllables and remains in effect across syllable boundaries until the closing tag appears.
 
 ```aretino
 (g2) g h i g. hi h g e_d_ , g hi a'g g. ||
-w: <b>℟.:</b>~~Al-le-lu-ia, <i>al-le-lu-ia</i>, al-le-lu-ia.
+w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ```
 
 ---
@@ -563,14 +580,14 @@ w: <b>℟.:</b>~~Al-le-lu-ia, <i>al-le-lu-ia</i>, al-le-lu-ia.
 ```aretino
 ;title: Lord, have mercy (XVI.)
 %%
-(g2) (K:ibx) h h h g h fg h ||
-w: Lord, have mer-cy up-on us! (<i>3x</i>)
+(g2) (K:ib) h h h g h fg h ||
+w: Lord, have mer-cy up-on us! (<3x>)
 
 h h h g h fg h ||
-w: Christ, have mer-cy up-on us! (<i>3x</i>)
+w: Christ, have mer-cy up-on us! (<3x>)
 
 h h h g h fg h ||
-w: Lord, have mer-cy up-on us! (<i>2x</i>)
+w: Lord, have mer-cy up-on us! (<2x>)
 
 h g i g f gh h ||
 w: Lord, have mer-cy up-on us!

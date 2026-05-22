@@ -196,7 +196,7 @@ korlátja**, nem hiba — de a következménye, hogy:
   mind kézzel kell beállítani;
 - **a szöveg és a hangok között nincs szemantikai kapcsolat**:
   a "Ky-ri-e" szótagjai csak vizuálisan állnak a hangok alatt;
-- **nincs sortörés, nincs justify**: minden sor manuálisan szabva;
+- **nincs sortörés, nincs sorkizárás**: minden sor manuálisan tördelve;
 - **a forrás nem értelmezhető**: a `<-4--4t---tT4` karaktersorozat
   csak a Guido betűkészlet pozícióinak rajza, nem szemantikus jelölés, nagyon körülményes szerkeszteni
 
@@ -215,7 +215,7 @@ formátumként** valósítja meg. Ami ezzel jár:
 | **Több versszak** | mindegyik külön sor, kézzel igazítva | `w:` sorok, mindegyik igazítva |
 | **Skálázás** | font-pontméret változtatja | tetszőleges, automatikus újratördeléssel, lehetővé téve a különböző megjelenítési méreteket |
 | **Tördelés/újraszedés** | nincs — a sor csak addig fér, ameddig betűzi | **automatikus sortörés** a margónál, kulcs ismétlésével |
-| **Forrás hordozhatósága** | TTF-fontfüggő, font nélkül értelmezhetetlen | tiszta UTF-8 szöveg, a betűtípus nélkül is olvasható és szerkeszthető |
+| **Számítógépes feldolgozás** | Mivel elsősorban a megjelenést írja le, nagyon korlátozott | korlátlan |
 | **Bővíthetőség** | gyakorlatilag lehetetlen | korlátlan |
 
 ### A koncepció összefoglalása
@@ -692,7 +692,7 @@ w: U-ram, ir-gal-mazz né-künk!
 ### Antifóna zsoltárdallammal
 
 ```aretino
-;title: Hints meg engem
+%title: Hints meg engem
 %%
 (g2) (K:m#) d e g f gh h , i j i h i h ge d | d e gfgh h , i g ge ggfg h g e d d ||
 w: Hints meg en-gem U-ram, i-zsóp-pal és meg-tisz-tu-lok, moss meg en-gem, és fe-hé-rebb le-szek a hó-nál.

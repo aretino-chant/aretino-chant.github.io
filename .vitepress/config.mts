@@ -55,7 +55,6 @@ export default defineConfig({
         nav: [
           { text: 'User guide', link: '/user-guide' },
           { text: 'Cheatsheet', link: '/cheatsheet' },
-          { text: 'Magyar', link: '/hu/user-guide' },
         ],
         sidebar: [
           {
@@ -69,30 +68,6 @@ export default defineConfig({
         ],
       },
     },
-
-    hu: {
-      label: 'Magyar',
-      lang: 'hu',
-      link: '/hu/user-guide',
-      themeConfig: {
-        nav: [
-          { text: 'Útmutató', link: '/hu/user-guide' },
-          { text: 'Puska', link: '/hu/cheatsheet' },
-        ],
-        sidebar: [
-          {
-            text: 'Dokumentáció',
-            items: [
-              { text: 'Felhasználói útmutató', link: '/hu/user-guide' },
-              { text: 'Puska (cheatsheet)', link: '/hu/cheatsheet' },
-            ],
-          },
-        ],
-        editLink: {
-          pattern: `${DOCS_REPO}/edit/master/:path`,
-          text: 'Oldal szerkesztése a GitHubon',
-        },
-      },
-    },
+    
   },
 })

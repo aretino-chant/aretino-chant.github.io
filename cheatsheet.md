@@ -7,12 +7,12 @@
 | Pitch ||
 |---|---|
 | `a b c d e f g h i j k l m` | 13 positions, low to high |
-| `a' b' … h'` | raised octave (with apostrophe) |
+| `A B … H` | raised octave (uppercase) |
 
 | Notehead ||
 |---|---|
-| `d`, `D`, `dt` | punctum, virga, tenor |
-| `dw`, `dt`, `ds` | quilisma, small note |
+| `d`, `d'`, `dt` | punctum, virga, tenor |
+| `dw`, `ds` | quilisma, small note |
 
 | Suffix ||
 |---|---|
@@ -40,7 +40,7 @@
 | `(ib)` | flat (the letter = pitch, e.g. `eb`, `fb`) |
 | `(in)` | natural |
 | `(i#)` | sharp |
-| `(K:ib j#)` | key signature (repeats at the start of every line) |
+| `(K:F# C#)` | key signature (repeats at the start of every line) |
 
 | Decorations | |
 |---|---|
@@ -50,8 +50,9 @@
 | Text | |
 |---|---|
 | `w: Ky-ri-e` | text line (hyphen = syllable boundary) |
-| `W: Psalm verse text...` | verse line (free-flowing, not note-aligned) |
 | multiple `w:` lines | multiple stanzas |
+| `W: Psalm verse text...` | verse line (free-flowing, not note-aligned) |
+| multiple `W:` lines | multiple verse lines |
 | `~` | tie several words to one note |
 | `~~` | bind a stanza number (e.g. `1.~~Ky-ri-e`) |
 | `[text]` `<text>` `{text}` | underline, italic, bold |
@@ -59,5 +60,5 @@
 
 | Header | Meaning |
 |---|---|
-| `%title: Title` | title (centered, bold) |
+| `%title: Title` | title (centered, bold), other headers: caption, rubric |
 | `%%` | end of header |

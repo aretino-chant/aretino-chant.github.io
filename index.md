@@ -13,9 +13,6 @@ hero:
     - theme: alt
       text: Cheatsheet
       link: /cheatsheet
-    - theme: alt
-      text: Magyar útmutató
-      link: /hu/user-guide
 
 features:
   - title: Position is pitch
@@ -31,7 +28,7 @@ features:
 Edit the source below — the notation updates as you type.
 
 ```aretino
-(g2) g h i g. hi h g e_d_ , g hi a'g g. ||
+(g2) g A B g. AB A g e_d_ , g AB Ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 ```
 

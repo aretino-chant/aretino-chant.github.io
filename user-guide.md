@@ -3,7 +3,7 @@
 > Hungarian Catholic Gregorian notation in text format.
 
 ```aretino
-(g2) g h i g. hi h g e_d_ , g hi a'g g. ||
+(g2) g A B g. AB A g e_d_ , g AB Ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 ```
 
@@ -112,7 +112,7 @@ torculus, `4 u U 6` = another torculus, etc. Moreover, certain markings could no
 The same thing in Aretino — simply specify the note names and everything is automatic:
 
 ```aretino
-(g2) g gh hg H/g hf he hih gji jjihg
+(g2) g gh hg h'/g hf he hih gji jjihg
 ```
 
 ### What Did the Guido Bring?
@@ -176,18 +176,18 @@ Aretino therefore does **not break** with the tradition — on the contrary: it 
 ## 5. Your First Score
 
 ```aretino
-(g2) d f g h.
+(g2) c e g A g.
 ```
 
-This draws a treble clef (G on the 2nd line) and then four punctums — the last with a mora (duration dot).
+This draws a treble clef (G on the 2nd line) and then five punctums — the last with a mora (duration dot).
 
 A minimal example with text and header:
 
 ```aretino
-%title: First Attempt
+%title: Salve Regina
 %%
-(g2) d f g h.
-w:   This is a test.
+(g2) c e g A g.
+w: Sal-ve, Re-gí-na,
 ```
 
 The three main building blocks:
@@ -257,11 +257,11 @@ w: a b c d e f g h i j k l m
 So in treble clef, `c` is C on line 1, `g` is B on line 3, etc.
 In bass clef, the same `c` on line 1 becomes E (because the clef changes, but the line position does not).
 
-### Raised Octave — Apostrophe
+### Raised Octave — Uppercase letters
 
 ```aretino
-a' b' c' d' e' f' g' h'
-w: a' b' c' d' e' f' g' h'
+A B C D E F G H
+w: A B C D E F G H
 ```
 
 ---
@@ -273,7 +273,7 @@ A **suffix character** immediately after the letter modifies the base form of th
 | Source | Name | Appearance |
 |---|---|---|
 | `d` | **punctum** | filled round notehead, no stem |
-| `D` | **virga** | punctum with a downward stem on the left (capital letter!) |
+| `d'` | **virga** | punctum with a downward stem on the left (capital letter!) |
 | `dw` | **quilisma** | striped, zigzag-contour notehead |
 | `dt` | **tenor note** | open notehead with vertical bars on both sides |
 | `ds` | **small note** | reduced-size notehead |
@@ -281,7 +281,7 @@ A **suffix character** immediately after the letter modifies the base form of th
 ### Examples
 
 ```aretino
-(g2) d D dw dt ds
+(g2) d d' dw dt ds
 ```
 
 Left to right: punctum, virga, quilisma, tenor note — all at the same pitch (D).
@@ -451,7 +451,7 @@ The key signature is placed after the clef. The renderer automatically displays 
 
 | Source | Meaning |
 |---|---|
-| `(K:b)` | flat key signature on line 3 (B note, `i` height) |
+| `(K:b)` or `(K:Bb)` | flat key signature on line 3 (B note, `i` height) |
 | `(K:eb)` | flat on the E note |
 | `(K:b eb)` | multiple accidentals — separated by spaces |
 | `(K:)` | cancel key signature |
@@ -459,7 +459,7 @@ The key signature is placed after the clef. The renderer automatically displays 
 ```aretino
 %title: Example with Key Signature
 %%
-(g2) (K:m# j#) d e f g h i j k (||)
+(g2) (K:F# C#) d e f g h i j k (||)
 ```
 
 The `(K:b)` is repeated at the beginning of each new line. A subsequent `(K:...)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
@@ -492,8 +492,8 @@ w: Praise to the Pas-chal Vic-tim now.
 Use `W:` for psalm-verse style text that should flow freely instead of syllable-by-syllable note alignment. It automatically indents explicit and automatic line breaks. Formatting directives can be used as well.
 
 ```aretino
-(g2) g hi h g e_d_ , g hi a'g g. ||
-w: Al-le-lu-ia, * al-le-lu-ia.
+(g2) f g A f. , gA g f d_c_ , f gA gf f. ||
+w: Al-le-lu-ia, (*) al-le-lu-ia, al-le-lu-ia.
 W: Glory to the {Father} and to the [Son] * 
 and to the Holy Spirit.
 W: As it was in the beginning, is now and ever shall be * 
@@ -521,7 +521,7 @@ w: ~ ~ text
 To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~` to connect them. For the first stanza, manual spacing may be needed.
 
 ```aretino
-(g2) = g g h g gj j. ' jt
+(g2) == g g h g gj j. ' jt
 w: 1.~~Glo-ry to the Fa-ther (†) and~the~...
 ```
 
@@ -545,7 +545,7 @@ Simple formatting marks can be placed in `w:` and `W:` lines:
 
 
 ```aretino
-(g2) g h i g. hi h g e_d_ , g hi a'g g. ||
+(g2) g h i g. hi h g e_d_ , g hi Ag g. ||
 w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ```
 

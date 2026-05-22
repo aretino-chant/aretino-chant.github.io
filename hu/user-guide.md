@@ -1,7 +1,6 @@
 # Aretino — felhasználói útmutató
 
 > Magyar katolikus gregorián notáció szöveges formátumban.
-> Verzió: 1.0 · Utolsó frissítés: 2026-05-18
 
 ```aretino
 (g2) g h i g. hi h g e_d_ , g hi a'g g. ||
@@ -12,30 +11,6 @@ Ez az útmutató lépésről lépésre, példákkal mutatja be az **Aretino** ko
 A formátum/tördelési algoritmus még változhat, a visszajelzéseket köszönettel fogadjuk!
 
 Az Aretino kottaformátum szabadon felhasználható, kérjük, nyilvános anyagokban hivatkozzanak honlapunkra: [aretino-chant.github.io](https://aretino-chant.github.io)
-
----
-
-## Tartalomjegyzék
-
-1. [Mi az Aretino?](#1-mi-az-aretino)
-2. [Elvi háttér — a "modernizált metzigót" átírás](#2-elvi-háttér--a-modernizált-metzigót-átírás)
-3. [A Guido font, mint szellemi előd](#3-a-guido-font-mint-szellemi-előd)
-4. [Miért lép tovább az Aretino?](#4-miért-lép-tovább-az-aretino)
-5. [Első kotta](#5-első-kotta)
-6. [Fejléc](#6-fejléc)
-7. [Kulcsok](#7-kulcsok)
-8. [Hangmagasság](#8-hangmagasság)
-9. [Kottafej-típusok](#9-kottafej-típusok)
-10. [Módosító utótagok (mora, episema, ictus, liquescens)](#10-módosító-utótagok)
-11. [Ligatúrák — neumák](#11-ligatúrák--neumák)
-12. [Neuma-tagoló rés (`/`)](#12-neuma-tagoló-rés)
-13. [Vonalak és tagolójelek](#13-vonalak-és-tagolójelek)
-14. [Sorvégi kiegyenlítés, manuális elosztás és sortörés](#14-sorvégi-kiegyenlítés-manuális-elosztás-és-sortörés)
-15. [Módosítójelek (b, kereszt, feloldó)](#15-módosítójelek)
-16. [Szöveg, versszakok és verssorok](#16-szöveg-versszakok-és-verssorok)
-17. [Hosszabb példák](#17-hosszabb-példák)
-18. [A szerkesztő használata](#18-a-szerkesztő-használata)
-19. [Gyakori hibák és tippek](#19-gyakori-hibák-és-tippek)
 
 ---
 
@@ -729,44 +704,40 @@ w: ~ ~ ~ † (*)
 
 ---
 
-## 19. Gyakori hibák és tippek
+## 18. Zárójeles hangok
 
-### "A ligatúra nem áll össze"
+Egy vagy több hang (vagy egy egész neuma) `[` … `]` jelekkel körülvéve **tipográfiai zárójelet** jelenít meg körülöttük. Ez az opcionális hangok jelölésére szolgál — például olyan hangoknál, amelyeket csak bizonyos alkalmakkor énekelnek.
 
-**Tünet:** két hang közé szándékodnál hosszabb rés került.
-**Ok:** szóköz van a hangok között.
-**Megoldás:** írd egybe — `d f` (két punctum) helyett `df` (podatus).
+| Forrás | Jelentés |
+|---|---|
+| `[h]` | egyetlen zárójeles hang |
+| `[hg]` | zárójeles ligatúra (neuma) |
+| `[h i j]` | több token zárójelben (szóközök engedélyezve) |
 
-### "Túl sok virga-szár jelent meg"
+```aretino
+(g2) d [h] g [hg] d [h i j] g
+```
 
-**Tünet:** ligatúra-csúcsokon kéretlenül szárak jelennek meg.
-**Ok:** ez a normál viselkedés — az auto-virga minden csúcsra szárat tesz.
-**Megoldás:** ha tudatosan nem akarsz virga-csúcsot, írd át a ligatúrát
-külön punctum-okra (szóközzel) ott, ahol nem akarod az automatikust.
+---
 
-### "A szöveg nem igazodik a hangokhoz"
+## 19. Feliratok
 
-**Tünet:** szótagok nem a megfelelő egység alá kerülnek.
-**Ok:** valószínűleg a szótag-tagolás nem stimmel — vagy hiányoznak a
-kötőjelek (`Kyrie` helyett `Ky-ri-e`), vagy ott írtál ligatúrát, ahol
-külön hangokat kéne (vagy fordítva).
-**Megoldás:** ellenőrizd, hogy minden szótaghoz **pontosan egy** neuma
-vagy különálló hang tartozik-e. Ha egy szótag alá több hang kell, írd
-őket ligatúrába (szóköz nélkül egybe).
+A **felirat** egy rövid szöveg, amely egy hang vagy neuma felett jelenik meg. A kettős idézőjelbe tett karakterláncot közvetlenül a hang vagy ligatúra után kell írni, szóköz nélkül:
 
-### "A módosító nem jelenik meg a megfelelő hangon"
+```aretino
+(g2) hg"Felirat" d f"\red{{!}}" gh"2x"
+```
 
-**Tünet:** mora vagy episema nem ott jelenik meg, ahol kellene.
-**Ok:** az utótag-karakter csak az **előtte álló** hangra vonatkozik.
-**Megoldás:** `df.` → az `f`-hez tartozik a mora. Ha a `d`-hez szeretnéd,
-írd `d.f`-nek (de figyelj: a szóköz nélküli ligatúrában a `d.` előbbi
-hangot módosít, és a `f` a következő hang).
+A feliratok tetszőleges (opcionálisan formázott) szövegek lehetnek; a megfelelő hang vagy ligatúra felett jelennek meg.
 
-### "Üres sor lett a kotta közepén"
+---
 
-**Tünet:** váratlan kötőjel a két szakasz között, vagy szétesik az
-illesztés.
-**Ok:** üres sor **új szakaszt** indít a parserben.
-**Megoldás:** ha nem akarsz új szakaszt, ne hagyj üres sort a dallam
-és szöveg között.
+## 20. Segítség és támogatás
+
+Ha kérdésed van, hibát találtál, vagy visszajelzést szeretnél küldeni, használd a **GitHub-tárolót**:
+
+- **Kérdések és általános megbeszélések** — [GitHub Discussions](https://github.com/aretino-chant/aretino-chant/discussions): kérdezz a működésről, vagy indíts beszélgetést a formátumról.
+- **Hibabejelentések és funkcióigények** — [GitHub Issues](https://github.com/aretino-chant/aretino-chant/issues): ha a megjelenítő váratlan eredményt produkál, vagy hiányzónak találsz valamit, nyiss egy hibajegyet egy rövid reprodukálható példával.
+
+Az Aretino egy önkéntes projekt, amelyet a liturgikus zene szeretői hoznak létre — a türelmedet és a bátorításodat nagyon köszönjük. Nincs levelezési lista vagy fórum — a GitHub az egyetlen helye minden támogatásnak.
 

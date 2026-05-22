@@ -42,6 +42,11 @@
 | `(i#)` | sharp |
 | `(K:ib j#)` | key signature (repeats at the start of every line) |
 
+| Decorations | |
+|---|---|
+| `[h]` `[hg]` `[h i j]` | typographical parentheses around note(s) or neume |
+| `hg"Label"` | label above the note or neume |
+
 | Text | |
 |---|---|
 | `w: Ky-ri-e` | text line (hyphen = syllable boundary) |
@@ -54,5 +59,5 @@
 
 | Header | Meaning |
 |---|---|
-| `;title: Title` | title (centered, bold) |
+| `%title: Title` | title (centered, bold) |
 | `%%` | end of header |

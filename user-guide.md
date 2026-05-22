@@ -1,7 +1,6 @@
 # Aretino — User Guide
 
 > Hungarian Catholic Gregorian notation in text format.
-> Version: 1.0 · Last updated: 2026-05-18
 
 ```aretino
 (g2) g h i g. hi h g e_d_ , g hi a'g g. ||
@@ -12,30 +11,6 @@ This guide introduces the **Aretino** notation format step by step, with example
 The format/layout algorithm may still change; we welcome your feedback!
 
 The Aretino notation format is freely usable; please link to our website in public materials: [aretino-chant.github.io](https://aretino-chant.github.io)
-
----
-
-## Table of Contents
-
-1. [What is Aretino?](#1-what-is-aretino)
-2. [Theoretical Background — the "Modernized Metz-Gothic" Transcription](#2-theoretical-background--the-modernized-metz-gothic-transcription)
-3. [The Guido Font as Intellectual Predecessor](#3-the-guido-font-as-intellectual-predecessor)
-4. [Why Does Aretino Go Further?](#4-why-does-aretino-go-further)
-5. [Your First Score](#5-your-first-score)
-6. [Header](#6-header)
-7. [Clefs](#7-clefs)
-8. [Pitch](#8-pitch)
-9. [Notehead Types](#9-notehead-types)
-10. [Modifier Suffixes (mora, episema, ictus, liquescent)](#10-modifier-suffixes)
-11. [Ligatures — Neumes](#11-ligatures--neumes)
-12. [Neume-Separator Gap (`/`)](#12-neume-separator-gap)
-13. [Bar Lines and Dividers](#13-bar-lines-and-dividers)
-14. [Line-End Justification, Manual Spacing, and Line Breaks](#14-line-end-justification-manual-spacing-and-line-breaks)
-15. [Accidentals (flat, sharp, natural)](#15-accidentals)
-16. [Text, Stanzas, and Verses](#16-text-stanzas-and-verses)
-17. [Longer Examples](#17-longer-examples)
-18. [Using the Editor](#18-using-the-editor)
-19. [Common Mistakes and Tips](#19-common-mistakes-and-tips)
 
 ---
 
@@ -602,35 +577,39 @@ w: Lord, have mer-cy up-on us!
 - Blank lines **start a new section**.
 - Text is aligned under the bar line.
 
-## 19. Common Mistakes and Tips
+## 18. Parenthesized Notes
 
-### "The ligature doesn't join up"
+Wrapping one or more notes (or a whole neume) in `[` … `]` renders **typographical parentheses** around them. This is used for optional notes — for example, notes sung only on certain occasions.
 
-**Symptom:** an unintentionally long gap appears between two notes.  
-**Cause:** there is a space between the notes.  
-**Solution:** write them together — instead of `d f` (two punctums), write `df` (podatus).
+| Source | Meaning |
+|---|---|
+| `[h]` | single note in parentheses |
+| `[hg]` | ligature (neume) in parentheses |
+| `[h i j]` | multiple tokens in parentheses (spaces allowed) |
 
-### "Too many virga stems appeared"
+```aretino
+(g2) d [h] g [hg] d [h i j] g
+```
 
-**Symptom:** unwanted stems appear on ligature peaks.  
-**Cause:** this is normal behavior — auto-virga places a stem on every peak.  
-**Solution:** if you intentionally don't want a virga peak, rewrite the ligature as separate punctums (with spaces) where you don't want the automatic stem.
+---
 
-### "The text doesn't align with the notes"
+## 19. Labels
 
-**Symptom:** syllables are not under the correct unit.  
-**Cause:** the syllabification is probably off — either hyphens are missing (`Kyrie` instead of `Ky-ri-e`), or you wrote a ligature where separate notes were needed (or vice versa).  
-**Solution:** check that each syllable corresponds to **exactly one** neume or standalone note. If multiple notes are needed for one syllable, write them in a ligature (together without a space).
+A **label** is a short text displayed above a note or neume. Place a double-quoted string immediately after the note or ligature, without a space:
 
-### "The modifier doesn't appear on the right note"
+```aretino
+(g2) hg"Label" d f"\red{{!}}" gh"2x"
+```
 
-**Symptom:** mora or episema doesn't appear where it should.  
-**Cause:** the suffix character applies only to the note **immediately before it**.  
-**Solution:** `df.` → the mora belongs to `f`. If you want it on `d`, write `d.f` (but note: in a ligature without a space, `d.` modifies the earlier note, and `f` is the next note).
+Labels can be any (optionally formatted) text; they are rendered above the corresponding note or ligature.
 
-### "An empty line appeared in the middle of the score"
+---
 
-**Symptom:** an unexpected break or broken alignment between two sections.  
-**Cause:** a blank line **starts a new section** in the parser.  
-**Solution:** if you don't want a new section, don't leave a blank line between the melody and text.
+## 20. Getting Help and Support
 
+If you have a question, find a bug, or want to share feedback, please use the **GitHub repository**:
+
+- **Questions and general discussion** — [GitHub Discussions](https://github.com/aretino-chant/aretino-chant/discussions): ask how something works, or start a conversation about the format.
+- **Bug reports and feature requests** — [GitHub Issues](https://github.com/aretino-chant/aretino-chant/issues): if the renderer produces unexpected output or you think something is missing, open an issue with a short example that reproduces the problem.
+
+Aretino is a volunteer project by people who love liturgical music — your patience and encouragement are very welcome. There is no mailing list or forum — GitHub is the single place for all support.

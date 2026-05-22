@@ -280,7 +280,7 @@ az utolsóra morával (nyújtóponttal).
 Egy minimum-példa szöveggel és fejléccel:
 
 ```aretino
-;title: Első kísérlet
+%title: Első kísérlet
 %%
 (g2) d f g h.
 w:   Pró-ba kot-ta.
@@ -297,19 +297,22 @@ A három fő építőelem:
 
 ## 6. Fejléc
 
-A fejléc-sorok pontosvesszővel kezdődnek (`;kulcs: érték`), és a `%%` lezárja:
+A fejléc-sorok százalékjellel kezdődnek (`%kulcs: érték`), és a `%%` lezárja:
 
 | Kulcs | Leírás |
-|---|---|---|
+|---|---|
 | `title` | Cím, középre igazítva, félkövér. |
 | `caption` | Felirat, jobbra igazítva, dőlt. |
+| `rubric` | Rubrika, balra igazítva, kis kapitális |
 | `indent` | Behúzás az első sor elején. Ha értéket adsz (pl. `I.d`), kis betűvel jelenik meg. |
 
+Különleges karaktereket és formázást is használhatsz.
 
 ```aretino
-;title: Kezdő fohász
-;caption: Vesperás
-;indent: VII.
+%title: Vigília
+%caption: Zsolt 50,17
+%indent: VII.
+%rubric: Kezdés
 %%
 (g2) h h h g h j i g h. ||
 w: Is-te-nem, hall-gass hí-vá-som-ra!
@@ -578,7 +581,7 @@ csak a darab elején van leírva.
 | `(K:)` | előjegyzés törlése |
 
 ```aretino
-;title: Példa előjegyzéssel
+%title: Példa előjegyzéssel
 %%
 (g2) (K:m# j#) d e f g h i j k (||)
 ```
@@ -690,7 +693,7 @@ w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ### Egyszerű Kyrie
 
 ```aretino
-;cím: Uram, irgalmazz (XVI.)
+%title: Uram, irgalmazz (XVI.)
 %%
 (g2) (K:ib) h h h g h fg h ||
 w: U-ram, ir-gal-mazz né-künk! (<3x>)

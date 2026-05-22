@@ -209,7 +209,7 @@ This draws a treble clef (G on the 2nd line) and then four punctums — the last
 A minimal example with text and header:
 
 ```aretino
-;title: First Attempt
+%title: First Attempt
 %%
 (g2) d f g h.
 w:   This is a test.
@@ -225,19 +225,22 @@ The three main building blocks:
 
 ## 6. Header
 
-Header lines begin with a semicolon (`;key: value`), and `%%` closes the header:
+Header lines begin with a percent sign (`%key: value`), and `%%` closes the header:
 
 | Key | Description |
 |---|---|
 | `title` | Title, centered, bold. |
 | `caption` | Caption, right-aligned, italic. |
+| `rubric` | Rubric, left-align, small caps |
 | `indent` | Indentation at the beginning of the first line. If a value is given (e.g. `I.d`), it appears in lowercase. |
 
+You can also use special characters, and formatting.
 
 ```aretino
-;title: Opening Prayer
-;caption: Vespers
-;indent: VII.
+%title: Vigil
+%caption: Ps. 50,17
+%indent: VII.
+%rubric: Call for prayer
 %%
 (g2) h h h g h j i g h. ||
 w: O Lord, hear my hum-ble call to you!
@@ -479,7 +482,7 @@ The key signature is placed after the clef. The renderer automatically displays 
 | `(K:)` | cancel key signature |
 
 ```aretino
-;title: Example with Key Signature
+%title: Example with Key Signature
 %%
 (g2) (K:m# j#) d e f g h i j k (||)
 ```
@@ -543,8 +546,8 @@ w: ~ ~ text
 To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~` to connect them. For the first stanza, manual spacing may be needed.
 
 ```aretino
-(g2) = g g g h g gj j ' jt
-w: 1.~~Ki-rá-lyok-nak Ki-rá-lya (†) és~Atyja...
+(g2) = g g h g gj j. ' jt
+w: 1.~~Glo-ry to the Fa-ther (†) and~the~...
 ```
 
 ### Special Characters
@@ -578,7 +581,7 @@ w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ### Simple Kyrie
 
 ```aretino
-;title: Lord, have mercy (XVI.)
+%title: Lord, have mercy (XVI.)
 %%
 (g2) (K:ib) h h h g h fg h ||
 w: Lord, have mer-cy up-on us! (<3x>)

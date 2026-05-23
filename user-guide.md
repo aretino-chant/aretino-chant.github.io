@@ -516,6 +516,21 @@ f g ; h g
 w: ~ ~ text
 ```
 
+### Writing one musical line as multiple input lines
+
+You can use the `n:` (as in _notes_) prefix to continue the previous music line. This allows you to write one measure per line for easier editing.
+
+```aretino
+(g2) (K:b) 
+cf f f fghigf fj jklmkj j , 
+w: {V}a-dis,~{*} pro-pi-ti-á-tor, 
+n: fj j jk k kj j hijih gh igf ; 
+w: ad im-mo-lán-dum pro ó-mni-bus. 
+% bar #3 
+n: f hi j i ji h ijijkjih ghgf , 
+w: Non ti-bi oc-cúr-rit Pe-trus, 
+```
+
 ### Stanza Numbering
 
 To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~` to connect them. For the first stanza, manual spacing may be needed.

@@ -3,6 +3,7 @@ dist/
 build/
 .vitepress/dist/
 .vitepress/cache/
+.vitepress/.temp/
 .env
 .DS_Store
 *.log

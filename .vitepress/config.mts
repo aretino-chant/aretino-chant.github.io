@@ -33,6 +33,20 @@ export default defineConfig({
     },
   },
 
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag === 'aretino-editor',
+      },
+    },
+  },
+
+  vite: {
+    optimizeDeps: {
+      exclude: ['@aretino-chant/editor'],
+    },
+  },
+
   themeConfig: {
     logo: '/logo.svg',
     search: { provider: 'local' },
@@ -53,6 +67,7 @@ export default defineConfig({
       lang: 'en',
       themeConfig: {
         nav: [
+          { text: 'Editor', link: '/editor' },
           { text: 'User guide', link: '/user-guide' },
           { text: 'Cheatsheet', link: '/cheatsheet' },
         ],
@@ -61,6 +76,7 @@ export default defineConfig({
             text: 'Documentation',
             items: [
               { text: 'Introduction', link: '/' },
+              { text: 'Online editor', link: '/editor' },
               { text: 'User guide', link: '/user-guide' },
               { text: 'Cheatsheet', link: '/cheatsheet' },
             ],

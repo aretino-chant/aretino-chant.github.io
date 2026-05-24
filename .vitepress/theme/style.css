@@ -4,3 +4,133 @@
   --vp-c-brand-3: #b97f43;
   --vp-c-brand-soft: rgba(138, 90, 43, 0.14);
 }
+
+.online-editor {
+  margin: 2rem 0 1rem;
+}
+
+.online-editor__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.online-editor__toolbar button {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.online-editor__toolbar button:hover:not(:disabled),
+.online-editor__toolbar button:focus-visible:not(:disabled) {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
+.online-editor__toolbar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.online-editor__save-error {
+  margin: -0.25rem 0 0.75rem;
+  color: var(--vp-c-danger-1);
+  font-size: 0.88rem;
+}
+
+.online-editor__workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.online-editor__component {
+  width: 100%;
+  height: 34rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.online-editor__component::part(editor) {
+  flex: 1 1 auto;
+}
+
+.online-editor__component::part(preview) {
+  display: none;
+}
+
+.online-editor__fallback {
+  width: 100%;
+  height: 34rem;
+  padding: 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  resize: vertical;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.online-editor__fallback:focus {
+  outline: 2px solid var(--vp-c-brand-soft);
+  outline-offset: -2px;
+}
+
+.online-editor__preview-shell {
+  height: 34rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.online-editor__preview {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.online-editor__preview svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.online-editor__preview-error {
+  margin: 0;
+  padding: 0.75rem;
+  border-top: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-danger-1);
+  background: var(--vp-c-bg-soft);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 860px) {
+  .online-editor__workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .online-editor__component,
+  .online-editor__fallback,
+  .online-editor__preview-shell {
+    height: 24rem;
+  }
+}

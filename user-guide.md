@@ -10,6 +10,8 @@ w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 This guide introduces the **Aretino** notation format step by step, with examples.
 The format/layout algorithm may still change; we welcome your feedback!
 
+We also provide an [official online editor](/editor) with syntax highlighting, image export etc.
+
 The Aretino notation format is freely usable; please link to our website in public materials: [aretino-chant.github.io](https://aretino-chant.github.io)
 
 ---

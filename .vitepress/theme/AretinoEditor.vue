@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, useSlots } from 'vue'
+import { ref, computed, nextTick, onMounted, onBeforeUnmount, useSlots, watch } from 'vue'
 import { parseAretino, renderAretino } from '@aretino-chant/core'
 
 const props = defineProps({
@@ -54,10 +54,16 @@ const error = ref(null)
 // SSR would produce a different SVG and trigger a hydration mismatch.
 const mounted = ref(false)
 const containerWidth = ref(1920)
+const textareaEl = ref(null)
 const outputEl = ref(null)
+const caret = ref(0)
 let resizeObserver = null
+let highlightAtCaret = null
+let highlightRequestId = 0
+let disposed = false
 
-onMounted(() => {
+onMounted(async () => {
+  const editorModulePromise = import('@aretino-chant/editor')
   mounted.value = true
   if (outputEl.value) {
     const w = outputEl.value.getBoundingClientRect().width
@@ -70,9 +76,15 @@ onMounted(() => {
     })
     resizeObserver.observe(outputEl.value)
   }
+
+  const editorModule = await editorModulePromise
+  if (disposed) return
+  highlightAtCaret = editorModule.highlightAtCaret
+  updateCaret()
 })
 
 onBeforeUnmount(() => {
+  disposed = true
   if (resizeObserver) resizeObserver.disconnect()
 })
 
@@ -95,16 +107,43 @@ const svg = computed(() => {
     return ''
   }
 })
+
+function highlightPreview(position = caret.value) {
+  const requestId = ++highlightRequestId
+  const caretPosition = Number(position)
+
+  void nextTick(() => {
+    if (requestId !== highlightRequestId || !mounted.value || !outputEl.value || !highlightAtCaret) return
+    highlightAtCaret(outputEl.value, Number.isFinite(caretPosition) ? caretPosition : 0)
+  })
+}
+
+function updateCaret(event) {
+  const target = event?.target ?? textareaEl.value
+  const position = typeof target?.selectionStart === 'number' ? target.selectionStart : caret.value
+  caret.value = position
+  highlightPreview(position)
+}
+
+watch(svg, () => {
+  highlightPreview()
+}, { flush: 'post' })
 </script>
 
 <template>
   <div class="aretino-editor">
     <textarea
+      ref="textareaEl"
       v-model="source"
       :rows="rows"
       spellcheck="false"
       autocapitalize="off"
       autocomplete="off"
+      @input="updateCaret"
+      @keyup="updateCaret"
+      @click="updateCaret"
+      @select="updateCaret"
+      @focus="updateCaret"
     ></textarea>
     <div ref="outputEl" class="output" v-html="svg"></div>
     <div v-if="error" class="error">{{ error }}</div>

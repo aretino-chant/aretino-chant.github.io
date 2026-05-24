@@ -17,9 +17,12 @@ const previewWidth = ref(DEFAULT_PREVIEW_WIDTH)
 const saveError = ref('')
 const mounted = ref(false)
 let resizeObserver = null
+let highlightAtCaret = null
+let highlightRequestId = 0
 
 onMounted(async () => {
-  await import('@aretino-chant/editor')
+  const editorModule = await import('@aretino-chant/editor')
+  highlightAtCaret = editorModule.highlightAtCaret
   await customElements.whenDefined('aretino-editor')
 
   mounted.value = true
@@ -40,8 +43,16 @@ function handleEditorChange(event) {
   source.value = event.detail?.value ?? event.target?.value ?? ''
 }
 
+function handleEditorSelectionChange(event) {
+  highlightPreview(event.detail?.caret ?? event.target?.caret ?? 0)
+}
+
 function currentSource() {
   return editorHost()?.value ?? source.value
+}
+
+function currentCaret() {
+  return editorHost()?.caret ?? 0
 }
 
 function editorHost() {
@@ -85,10 +96,21 @@ function renderPreview() {
     const width = Math.max(120, Math.round((previewWidth.value || DEFAULT_PREVIEW_WIDTH) / EDITOR_ZOOM))
     previewSvg.value = renderAretino(currentSource(), { width, zoom: EDITOR_ZOOM })
     previewError.value = ''
+    highlightPreview()
   } catch (error) {
     previewSvg.value = ''
     previewError.value = error?.message ?? 'The preview could not be rendered.'
   }
+}
+
+function highlightPreview(caret = currentCaret()) {
+  const requestId = ++highlightRequestId
+  const position = Number(caret)
+
+  void nextTick(() => {
+    if (requestId !== highlightRequestId || !mounted.value || !previewEl.value || !highlightAtCaret) return
+    highlightAtCaret(previewEl.value, Number.isFinite(position) ? position : 0)
+  })
 }
 
 function serializeSvg(svg) {
@@ -237,6 +259,7 @@ watch(previewWidth, () => {
           :zoom="EDITOR_ZOOM"
           :preview="false"
           @change="handleEditorChange"
+          @selectionchange="handleEditorSelectionChange"
         />
 
         <div class="online-editor__preview-shell" aria-label="Score preview">

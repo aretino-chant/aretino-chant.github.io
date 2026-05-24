@@ -11,11 +11,11 @@ hero:
       text: User guide
       link: /user-guide
     - theme: alt
+      text: Official editor
+      link: /editor
+    - theme: alt
       text: Cheatsheet
       link: /cheatsheet
-    - theme: alt
-      text: Official Editor
-      link: /editor
 
 features:
   - title: Position is pitch

@@ -51,10 +51,6 @@ export default defineConfig({
     logo: '/logo.svg',
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: CODE_REPO }],
-    editLink: {
-      pattern: `${DOCS_REPO}/edit/master/:path`,
-      text: 'Edit this page on GitHub',
-    },
     footer: {
       message: 'Released under MPL-2.0 (code) and CC-BY-4.0 (docs).',
       copyright: 'Copyright © 2026 Bertalan Fodor and contributors',

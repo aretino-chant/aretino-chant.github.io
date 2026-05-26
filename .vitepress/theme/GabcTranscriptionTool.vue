@@ -3,9 +3,13 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { renderAretino } from '@aretino-chant/core'
 import { gabcToAretino } from '@aretino-chant/gabc2aretino'
 
-const DEFAULT_GABC = `name: Kyrie;
+const DEFAULT_GABC = `annotation: 5
 %%
-(c4) Ky(f)ri(g)e(h) e(j)le(i)i(h)son(g.) (::)`
+(c3) KY(d)ri(gxfgh)e(h.ivHGh.) *~{~}(/[-2]kvIH'Ghih.) (,) e(gxhvFE'Dgf)lé(e')i(e)son.(d.) <i>iij.</i>(::)
+Chri(f)ste(fvED'Cd.gxd!fg!hv.ivHGh.) (,) e(gxhvFE'Dgf)lé(e')i(e)son.(d.) <i>iij.</i>(::)
+Ký(k')ri(j)e(kvJI'jkh.1gxkhiv./[-0.5]fg!hv.) (,) e(gxhvFE'Dgf)lé(e')i(e)son.(d.) <i>ij.</i>(::)
+Ký(k')ri(j)e(kvJI'jkh.1) <clear>*(,) (kjkvJI'jkh.1gxkhiv./[-0.5]fg!hv.) <clear>**(,) e(gxhvFE'Dgf)lé(e')i(e)son.(d.) (::)
+`
 const ZOOM = 1.25
 const DEFAULT_PREVIEW_WIDTH = 840
 

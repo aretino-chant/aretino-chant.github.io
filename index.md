@@ -14,6 +14,9 @@ hero:
       text: Official editor
       link: /editor
     - theme: alt
+      text: GABC transcription
+      link: /gabc-transcription
+    - theme: alt
       text: Cheatsheet
       link: /cheatsheet
 
@@ -38,4 +41,3 @@ w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 Aretino is a text format for notating Gregorian chant, following the Hungarian
 Catholic practice of [László Dobszay](https://zti.hu/index.php/en/early-music/history-of-the-department/laszlo-dobszay) and Janka Szendrei. The reference parser and
 renderer are published as [`@aretino-chant/core`](https://www.npmjs.com/package/@aretino-chant/core).
-

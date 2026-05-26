@@ -64,6 +64,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Editor', link: '/editor' },
+          { text: 'GABC transcription', link: '/gabc-transcription' },
           { text: 'User guide', link: '/user-guide' },
           { text: 'Cheatsheet', link: '/cheatsheet' },
         ],
@@ -73,6 +74,7 @@ export default defineConfig({
             items: [
               { text: 'Introduction', link: '/' },
               { text: 'Online editor', link: '/editor' },
+              { text: 'GABC transcription', link: '/gabc-transcription' },
               { text: 'User guide', link: '/user-guide' },
               { text: 'Cheatsheet', link: '/cheatsheet' },
             ],

@@ -6,8 +6,8 @@
 
 | Pitch ||
 |---|---|
-| `a b c d e f g h i j k l m` | 13 positions, low to high |
-| `A B … H` | raised octave (uppercase) |
+| `a b c d e f g h i j k l m n` | 14 positions, low to high |
+| `A B … N` | raised octave (uppercase) |
 
 | Notehead ||
 |---|---|
@@ -17,7 +17,8 @@
 | Suffix ||
 |---|---|
 | `d.`, `d_`, `d-`, `d~` | mora, episema, ictus, liquescent |
-| `df/gh` | `/` = neume separator |
+| `ds` | small/cue-sized note; combines with other shapes |
+| `df/gh`, `df / gh` | `/` = visual neume separator |
 
 | Dividers / bars | |
 |---|---|
@@ -25,26 +26,30 @@
 | `,` | quarter bar (small caesura) |
 | `;` | half bar |
 | `\|` | full bar |
+| `\|0` | invisible full-bar spacer |
 | `\|\|` | double bar (end of section) |
-| `:\| \|: :\|:` | repeat sign |
-| `\|\|\|` | final bar |
+| `\|: :\| :\|:` | repeat start, repeat end, repeat both |
+| `\|\|\|` | triple/final bar |
+| `(\|)` `(\|\|)` `(:\|)` | parenthesized bar forms also work |
 
 | Spacing / line break | |
 |---|---|
-| `(z)` `(Z)` | line break, justified / left-aligned |
-| `= (sp) (sp2)` | fixed gap (scalable with a multiplier) |
+| `(z)` `(Z)` | forced line break, justified / left-aligned |
+| `= == === (sp) (sp2)` | fixed gap (scalable with count/multiplier) |
 | `*` | flexible gap (for justification) |
 
 | Accidentals & key signature | |
 |---|---|
-| `(ib)` | flat (the letter = pitch, e.g. `eb`, `fb`) |
-| `(in)` | natural |
-| `(i#)` | sharp |
+| `(b)` `(n)` `(#)` | flat, natural, sharp at default `i` height |
+| `(ib)` `(in)` `(i#)` | flat, natural, sharp at explicit pitch |
 | `(K:F# C#)` | key signature (repeats at the start of every line) |
+| `(K:)` | clear key signature |
 
 | Decorations | |
 |---|---|
 | `[h]` `[hg]` `[h i j]` | typographical parentheses around note(s) or neume |
+| `{ g h i }` `\arc{ g h i }` `\line{ g h i }` | overbrace, arc, line above a span |
+| `{ g h i }"1."` | spanning mark label |
 | `hg"Label"` | label above the note or neume |
 
 | Text | |
@@ -53,12 +58,23 @@
 | multiple `w:` lines | multiple stanzas |
 | `W: Psalm verse text...` | verse line (free-flowing, not note-aligned) |
 | multiple `W:` lines | multiple verse lines |
-| `~` | tie several words to one note |
-| `~~` | bind a stanza number (e.g. `1.~~Ky-ri-e`) |
+| `n: g h i` | continue the previous music line |
+| unprefixed line after `w:` / `W:` | continue lyric / explicit verse line break |
+| `~` | non-breaking space inside one syllable |
+| `~~` | split display text from alignment text (e.g. `1.~~Ky-ri-e`) |
+| `(text)` | lyric label under the next bar line |
 | `[text]` `<text>` `{text}` | underline, italic, bold |
 | `\red{text}` `\color:green{text}` | colored text |
+| `\R` `\V` `+` `++` | responsory, versicle, dagger, double dagger |
+| `\X` | escape any special character |
 
 | Header | Meaning |
 |---|---|
-| `%title: Title` | title (centered, bold), other headers: caption, rubric |
+| `%title: Title` | title; other drawn headers: subtitle, caption, rubric, indent |
+| `%option: lyricDistance=0.5` | renderer option; repeat one option per line |
 | `%%` | end of header |
+
+| Markdown | Meaning |
+|---|---|
+| `` ```aretino `` | fenced Aretino block |
+| `` ```aretino fixed width=18cm `` | fixed-width embedded block |

@@ -169,7 +169,7 @@ Everything that is essential to the Dobszay–Szendrei school:
 - **descending connecting line** (point 5) — automatically, adjusted by interval;
 - **neume grouping with a notehead-width gap** (point 6) — the `/` operator;
 - **mora, episema, liquescence, quilisma** (points 8–9) — as suffix characters;
-- **independence of the staff-line and clef question** (point 10) — the clef can be changed without affecting the `a–m` notation.
+- **independence of the staff-line and clef question** (point 10) — the clef can be changed without affecting the `a–n` notation.
 
 Aretino therefore does **not break** with the tradition — on the contrary: it **automates the essence**, so the user only needs to focus on the musical content.
 
@@ -194,36 +194,54 @@ w: Sal-ve, Re-gí-na,
 
 The three main building blocks:
 
-1. **Header** — optional; `;key: value` lines, closed by `%%`.
-2. **Melody line** — notes, ligatures, bar lines. The first parenthesized element is the clef (`(g2)`, `(f4)`, `(c3)`).
-3. **Text line** — lyric (`w:`) or verse (`W:`), directly beneath the melody.
+1. **Header** — optional; `%key: value` lines, usually closed by `%%`.
+2. **Melody line** — notes, ligatures, bar lines. The first parenthesized element is usually the clef (`(g2)`, `(f4)`, `(c3)`).
+3. **Text line** — lyric (`w:`), verse (`W:`), or music continuation (`n:`), directly beneath the melody it belongs to.
+
+Body lines are classified by prefix:
+
+| Prefix | Meaning |
+|---|---|
+| `w:` | lyric syllables aligned under the preceding music line |
+| `W:` | free-flowing verse text, not note-aligned |
+| `n:` | music continuation after lyrics |
+| *(blank)* | section break / vertical spacing |
+| *(anything else)* | music line |
+
+After a `w:` line, an unprefixed line continues the same lyric line. After a `W:` line, an unprefixed line becomes an explicit line break inside that verse.
 
 ---
 
 ## 6. Header
 
-Header lines begin with a percent sign (`%key: value`), and `%%` closes the header:
+Header lines begin with a percent sign (`%key: value`). The `%%` marker closes the header; it is optional, but recommended whenever a header is present.
 
 | Key | Description |
 |---|---|
 | `title` | Title, centered, bold. |
+| `subtitle` | Smaller centered subtitle below the title. |
 | `caption` | Caption, right-aligned, italic. |
-| `rubric` | Rubric, left-align, small caps |
+| `rubric` | Rubric, left-aligned, small caps. |
 | `indent` | Indentation at the beginning of the first line. If a value is given (e.g. `I.d`), it appears in lowercase. |
+| `option` | Renderer option, one per line, e.g. `%option: lyricDistance=0.5`. |
 
 You can also use special characters, and formatting.
 
 ```aretino
 %title: Vigil
+%subtitle: Example
 %caption: Ps. 50,17
 %indent: VII.
 %rubric: Call for prayer
+%option: lyricDistance=0.5
 %%
 (g2) h h h g h j i g h. ||
 w: O Lord, hear my hum-ble call to you!
 ```
 
-The header is **optional** — you can start immediately with the melody line.
+Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `lyricFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, and `staffGap`.
+
+The header is **optional** — you can start immediately with the melody line. Unknown header keys are kept in the parsed source but are not drawn.
 
 ---
 
@@ -249,11 +267,11 @@ After a line break, the renderer automatically draws the current clef.
 
 ## 8. Pitch
 
-Notes are represented by the lowercase letters **a–m**. The letter always indicates the same line or space, **regardless of the clef**:
+Notes are represented by the lowercase letters **a–n**. The letter always indicates the same line or space, **regardless of the clef**:
 
 ```aretino
-a b c d e f g h i j k l m
-w: a b c d e f g h i j k l m
+a b c d e f g h i j k l m n
+w: a b c d e f g h i j k l m n
 ```
 
 So in treble clef, `c` is C on line 1, `g` is B on line 3, etc.
@@ -262,8 +280,8 @@ In bass clef, the same `c` on line 1 becomes E (because the clef changes, but th
 ### Raised Octave — Uppercase letters
 
 ```aretino
-A B C D E F G H
-w: A B C D E F G H
+A B C D E F G H I J K L M N
+w: A B C D E F G H I J K L M N
 ```
 
 ---
@@ -275,10 +293,10 @@ A **suffix character** immediately after the letter modifies the base form of th
 | Source | Name | Appearance |
 |---|---|---|
 | `d` | **punctum** | filled round notehead, no stem |
-| `d'` | **virga** | punctum with a downward stem on the left (capital letter!) |
+| `d'` | **virga** | punctum with a downward stem on the left |
 | `dw` | **quilisma** | striped, zigzag-contour notehead |
 | `dt` | **tenor note** | open notehead with vertical bars on both sides |
-| `ds` | **small note** | reduced-size notehead |
+| `ds` | **small note** | reduced-size notehead; `s` combines with other shapes |
 
 ### Examples
 
@@ -286,7 +304,7 @@ A **suffix character** immediately after the letter modifies the base form of th
 (g2) d d' dw dt ds
 ```
 
-Left to right: punctum, virga, quilisma, tenor note — all at the same pitch (D).
+Left to right: punctum, virga, quilisma, tenor note, and small note — all at the same staff position. Uppercase letters raise a note by an octave; they do not mean virga.
 
 The **virga** often appears automatically on ligature peaks (see the [Ligatures](#11-ligatures--neumes) section), but can also be used manually to indicate the internal grouping of longer melismas.
 
@@ -310,10 +328,13 @@ Combinable suffixes after the notehead, **without a space**:
 | `_` | **episema** | short horizontal line above the notehead. Consecutive episemata are merged by the system. |
 | `-` | **ictus** | small vertical line above the notehead (in the space) |
 | `~` | **liquescent** | small "tail" at the upper right of the notehead |
+| `s` | **small** | cue-sized notehead; combines with punctum, virga, quilisma, or tenor |
 
 ```aretino
-(g2) d d. d_ d- d~ d_e_d_
+(g2) d d. d_ d- d~ ds d_e_d_
 ```
+
+Modifiers can be combined freely: for example, `d._`, `d-~`, or `d's`.
 
 ---
 
@@ -361,7 +382,7 @@ The `/` (slash) inserts a **small breathing gap** within a ligature — making t
 
 ```
 
-You **cannot** put spaces around `/` within a ligature — that would break the ligature into separate neumes.
+You may put spaces around `/`; they are ignored. The slash is still a visual separator inside the same ligature, not a new syllable by itself.
 
 ---
 
@@ -372,16 +393,19 @@ You **cannot** put spaces around `/` within a ligature — that would break the 
 | `,` | short bar line (quarter bar) | small caesura, breath |
 | `;` | half bar line | end of a phrase section |
 | `\|` | full bar line | end of a sentence |
+| `\|0` | empty bar | invisible divider with full-bar spacing |
 | `\|\|` | double bar line | end of a section |
-| `:\| \|: :\|:` | repeat sign | repetition |
-| `\|\|\|` | final bar line | classical ending |
+| `\|:` | repeat start | beginning of a repeated section |
+| `:\|` | repeat end | end of a repeated section |
+| `:\|:` | repeat both | repeat end and start at the same point |
+| `\|\|\|` | triple/final bar line | classical ending |
 | `'` | small breath mark | breath |
 
 ```aretino
-' , ; | || :| |||
+' , ; | |0 || |: :| :|: |||
 ```
 
-Bar lines can also be written in parentheses: `(,)`, `(;)`, `(|)`, `(||)`, `(:|)`, `(|||)` — the effect is the same, but the parenthesized form may be familiar to users of traditional GABC.
+Bar lines can also be written in parentheses: `(,)`, `(;)`, `(|)`, `(|0)`, `(||)`, `(|:)`, `(:|)`, `(:|:)`, `(|||)` — the effect is the same, but the parenthesized form may be familiar to users of traditional GABC.
 
 If something appears in parentheses in the text, it is aligned under the next bar line; in the example below, `(*)` indicates that an asterisk should be written under the short bar line.
 
@@ -415,8 +439,8 @@ The renderer breaks lines automatically: if a line doesn't fit, it moves the nex
 
 | Source | Effect |
 |---|---|
-| `(z)` | line break suggestion, **justified** — the line fills to the margin |
-| `(Z)` | line break suggestion, **not** justified — the line is left-aligned |
+| `(z)` | forced line break, **justified** — the line fills to the margin |
+| `(Z)` | forced line break, **not** justified — the line is left-aligned |
 
 Use the `(z)` form where the end of a phrase naturally calls for a line break.
 
@@ -429,7 +453,7 @@ Use the `(z)` form where the end of a phrase naturally calls for a line break.
 
 ## 15. Accidentals
 
-Since v1.0, accidental tokens use `b / n / #`.
+Accidental tokens use `b / n / #`.
 
 | Source | Name | Meaning |
 |---|---|---|
@@ -437,7 +461,7 @@ Since v1.0, accidental tokens use `b / n / #`.
 | `(n)` | natural | cancels the preceding alteration |
 | `(#)` | sharp | raised by a semitone |
 
-The letter before the accidental gives the pitch height: `(eb)` = flat on E, `(fb)` = flat on F, etc. If just `(b)`, it appears on the B note (line 3, `i` height).
+The letter before the accidental gives the staff position: `(eb)` = flat on `e`, `(fb)` = flat on `f`, etc. If the pitch letter is omitted, the accidental appears at the default `i` position, so `(b)` means the same height as `(ib)`.
 
 ### Example
 
@@ -445,7 +469,7 @@ The letter before the accidental gives the pitch height: `(eb)` = flat on E, `(f
 (g2) (ib) (sp) (in) (sp) (i#) (sp) : h (ib) hih fgh. g(ib)hih
 ```
 
-Accidentals are kept together with the following neume. (Accidentals may also be used within a neume.)
+Accidentals are kept together with the following neume. They may also be written inside a neume, and an accidental remains active for the same staff position until the next bar line or a replacement accidental. If a measure wraps to a new system, the renderer repeats the active accidental before the first affected neume on the new system.
 
 ### Key Signature — `(K:...)`
 
@@ -453,8 +477,8 @@ The key signature is placed after the clef. The renderer automatically displays 
 
 | Source | Meaning |
 |---|---|
-| `(K:b)` or `(K:Bb)` | flat key signature on line 3 (B note, `i` height) |
-| `(K:eb)` | flat on the E note |
+| `(K:b)` | flat key signature at the default `i` height |
+| `(K:eb)` | flat on the `e` staff position |
 | `(K:b eb)` | multiple accidentals — separated by spaces |
 | `(K:)` | cancel key signature |
 
@@ -464,7 +488,7 @@ The key signature is placed after the clef. The renderer automatically displays 
 (g2) (K:F# C#) d e f g h i j k (||)
 ```
 
-The `(K:b)` is repeated at the beginning of each new line. A subsequent `(K:...)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
+The key signature is repeated at the beginning of each new line. A subsequent `(K:...)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
 
 ---
 
@@ -478,6 +502,17 @@ The rule is simple: **one syllable — one neume or one standalone note**.
 A ligature (e.g. `df`) counts as a single unit, so one syllable is assigned to it; a standalone punctum (e.g. `d` with spaces on both sides) also counts as one unit, and one syllable is assigned to it.
 
 The layout algorithm tries to place the text economically and aesthetically. This means that where possible, it tries to merge syllables. Individual syllables are centered under a punctum, and left-aligned under neumes, tenor notes, and mora-marked punctums.
+
+Useful lyric constructs:
+
+| Construct | Meaning |
+|---|---|
+| space | word boundary |
+| `-` | syllable boundary within a word |
+| `~` | non-breaking space inside one syllable |
+| `~~` | display text plus separate alignment text |
+| `*` | literal verse-division asterisk |
+| `(text)` | label centered under the next bar line |
 
 ### Multiple Stanzas
 
@@ -504,14 +539,14 @@ world without end. Amen.
 
 ### Multiple Words on One Note (`~`)
 
-If multiple words (syllables) need to be written **on a single note** — for example, under a reciting tenor note —, connect them with `~` without spaces:
+If multiple words need to be written **on a single note** — for example, under a reciting tenor note — connect them with `~` without spaces. It renders as a non-breaking space, so the whole unit stays attached to one neume:
 
 ```aretino
 (g2) f g ht g h :
 w: God is Lord,~King~of~all, praise him!
 ```
 
-The `~` sign can also be used to skip notes, leaving text out:
+The `~` sign can also be used as a blank placeholder to skip notes, leaving text out:
 
 ```aretino
 f g ; h g
@@ -533,9 +568,9 @@ n: f hi j i ji h ijijkjih ghgf ,
 w: Non ti-bi oc-cúr-rit Pe-trus, 
 ```
 
-### Stanza Numbering
+### Stanza Numbering and Alignment Text
 
-To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~` to connect them. For the first stanza, manual spacing may be needed.
+To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~`. The text before `~~` is displayed as a prefix, while the text after `~~` is the part used for horizontal alignment. For the first stanza, manual spacing may still be needed.
 
 ```aretino
 (g2) == g g h g gj j. ' jt
@@ -557,8 +592,9 @@ Simple formatting marks can be placed in `w:` and `W:` lines:
 - `[text]` — <ins>underline</ins>
 - `<text>` — *italic*
 - `{text}` — **bold**
-- `\red{text}` - red colored text
-- `\color:green{text}` green colored text
+- `\red{text}` — red colored text
+- `\color:green{text}` — green colored text
+- `\X` — escape a special character, e.g. `\{`, `\<`, or `\\`
 
 
 ```aretino
@@ -610,7 +646,26 @@ Wrapping one or more notes (or a whole neume) in `[` … `]` renders **typograph
 
 ---
 
-## 19. Labels
+## 19. Spanning Marks
+
+Music-line braces draw a visual mark above a span of notes. This is different from lyric text, where `{text}` means bold.
+
+| Source | Meaning |
+|---|---|
+| `{ g h i }` | curly overbrace above the notes |
+| `\arc{ g h i }` | smooth arc above the notes |
+| `\line{ g h i }` | straight line above the notes |
+| `{ g h i }"1."` | overbrace with a label |
+
+```aretino
+(g2) { g h i j }"melisma" \arc{ h i j } \line{ j k l m }
+```
+
+Spanning marks can cross automatic or explicit system breaks; the renderer continues the mark on the next row.
+
+---
+
+## 20. Labels
 
 A **label** is a short text displayed above a note or neume. Place a double-quoted string immediately after the note or ligature, without a space:
 
@@ -622,7 +677,35 @@ Labels can be any (optionally formatted) text; they are rendered above the corre
 
 ---
 
-## 20. Getting Help and Support
+## 21. Embedding in Markdown
+
+Hosts that support Aretino-in-Markdown recognize fenced code blocks tagged `aretino`:
+
+````markdown
+```aretino
+(g2) g h i ||
+```
+````
+
+Some hosts also accept layout options after the language tag:
+
+````markdown
+```aretino fixed width=18cm
+(g2) h h h g h j i g h. ||
+w: O Lord, hear my hum-ble call to you!
+```
+````
+
+| Option | Meaning |
+|---|---|
+| `fixed` | non-responsive layout; line breaks stay fixed |
+| `width=Ncm` / `width=Nmm` | physical target width, used with `fixed` |
+
+For source-level renderer settings, prefer repeatable `%option:` headers inside the Aretino source.
+
+---
+
+## 22. Getting Help and Support
 
 If you have a question, find a bug, or want to share feedback, please use the **GitHub repository**:
 

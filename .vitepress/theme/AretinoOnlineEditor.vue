@@ -7,8 +7,8 @@ w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.`
 const EDITOR_ZOOM = 1.2
 const DEFAULT_PREVIEW_WIDTH = 760
 
-// Staff widths per paper size in mm (210mm/148mm/215.9mm minus typical margins)
-const PAPER_STAFF_WIDTHS_MM = {
+// Layout widths per paper size in mm (210mm/148mm/215.9mm minus typical margins)
+const PAPER_WIDTH_MM = {
   a4: 170,    // 210mm − 40mm margins
   a5: 118,    // 148mm − 30mm margins
   letter: 176, // 215.9mm − 40mm margins
@@ -113,11 +113,11 @@ function renderPreview() {
 
   try {
     let renderOptions
-    if (paperSize.value === 'responsive' || fullscreen.value) {
+    if (paperSize.value === 'responsive') {
       const width = Math.round((previewWidth.value || DEFAULT_PREVIEW_WIDTH) / EDITOR_ZOOM)
       renderOptions = { width, zoom: EDITOR_ZOOM }
     } else {
-      renderOptions = { staffWidthMm: PAPER_STAFF_WIDTHS_MM[paperSize.value], zoom: EDITOR_ZOOM }
+      renderOptions = { widthMm: PAPER_WIDTH_MM[paperSize.value], zoom: EDITOR_ZOOM }
     }
     previewSvg.value = renderAretino(currentSource(), renderOptions)
     previewError.value = ''
@@ -367,7 +367,7 @@ watch(paperSize, () => renderPreview(), { flush: 'post' })
           <div
             ref="previewEl"
             class="online-editor__preview"
-            :class="{ 'online-editor__preview--paper': paperSize !== 'responsive' && !fullscreen }"
+            :class="{ 'online-editor__preview--paper': paperSize !== 'responsive' }"
             v-html="previewSvg"
           />
           <p v-if="previewError" class="online-editor__preview-error" role="alert">{{ previewError }}</p>

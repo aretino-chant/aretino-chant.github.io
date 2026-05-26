@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aretino-chant.github.io/sitemap.xml

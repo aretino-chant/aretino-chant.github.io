@@ -1,13 +1,81 @@
 ---
 layout: doc
-title: GABC to Aretino transcription
+title: Online GABC editor alternative
+description: Paste Gregorio GABC, transcribe it into Aretino notation, edit Gregorian chant in the browser, and preview the score instantly.
 aside: false
 pageClass: gabc-page
+head:
+  - - link
+    - rel: canonical
+      href: https://aretino-chant.github.io/gabc-transcription
+  - - meta
+    - name: keywords
+      content: GABC editor, online GABC editor, Gregorio GABC, GABC converter, Gregorian chant editor, chant notation editor, Aretino
+  - - meta
+    - property: og:title
+      content: Online GABC editor alternative | Aretino Chant
+  - - meta
+    - property: og:description
+      content: Paste Gregorio GABC, transcribe it into Aretino notation, edit Gregorian chant in the browser, and preview the score instantly.
+  - - meta
+    - property: og:url
+      content: https://aretino-chant.github.io/gabc-transcription
 ---
 
-# GABC to Aretino transcription
+<section class="gabc-landing">
+
+<p class="gabc-landing__eyebrow">For Gregorio and GABC users</p>
+
+# Online GABC editor alternative
+
+Paste Gregorio GABC, transcribe it into Aretino notation, edit the result in
+your browser, and preview a Gregorian chant score instantly.
+
+Many singers, editors, and libraries already have useful chant material encoded
+in Gregorio GABC. This page is a practical bridge from that existing work into
+Aretino: it gives a first transcription that can be reviewed, adjusted, and sung
+in Aretino's performance-oriented notation, without asking users to retype an
+entire repertory from the beginning.
+
+<div class="gabc-landing__actions">
+  <a class="gabc-landing__button gabc-landing__button--primary" href="#try-the-gabc-tool">Try the GABC tool</a>
+  <a class="gabc-landing__button" href="/editor">Open the Aretino editor</a>
+</div>
+
+<div class="gabc-landing__grid">
+  <section>
+    <h2>Convert existing GABC work</h2>
+    <p>Bring in antiphons, hymns, psalm tones, and other chant material already
+    stored as <code>.gabc</code> source.</p>
+  </section>
+  <section>
+    <h2>Edit in plain text</h2>
+    <p>Review the Aretino transcription directly, using a readable text notation
+    designed for chant performance.</p>
+  </section>
+  <section>
+    <h2>Preview in the browser</h2>
+    <p>Render the transcribed score client-side without installing Gregorio,
+    LaTeX, fonts, or a desktop editor.</p>
+  </section>
+</div>
+
+## Try the GABC tool
 
 <GabcTranscriptionTool />
+
+## Is this a GABC editor?
+
+It can be used by people looking for an online GABC editor, but it is more
+specific than a full Gregorio editor. You paste GABC on the left; Aretino
+transcribes it into its own notation on the right; the score preview is rendered
+from the Aretino transcription.
+
+If your goal is a final Vatican-style GregorioTeX PDF, keep using the official
+[Gregorio](https://gregorio-project.github.io/) toolchain or one of the online
+Gregorio services listed on [GregoWiki](https://gregoriochant.org/). If your goal
+is a browser-based chant editor with a lighter plain-text format and immediate
+score preview, Aretino is worth trying.
 
 ## Transcription, not conversion
 
@@ -50,3 +118,13 @@ it quickly. The same Aretino transcription can therefore serve a wide practical
 range: it preserves the information needed for chant performance while removing
 visual and interpretive density that would otherwise make the page harder to
 sing from.
+
+## Common searches this page answers
+
+People often arrive here while looking for a GABC editor, a GABC converter, a
+Gregorio alternative, or a Gregorian chant notation editor that works online.
+Aretino does not replace every part of the Gregorio ecosystem, but it gives GABC
+users a fast way to reuse existing chant source in a browser-native notation
+workflow.
+
+</section>

@@ -14,7 +14,7 @@ hero:
       text: Official editor
       link: /editor
     - theme: alt
-      text: GABC transcription
+      text: GABC editor alternative
       link: /gabc-transcription
     - theme: alt
       text: Cheatsheet

@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@aretino-chant/core": "^0.9.2",    
-    "@aretino-chant/editor": "^0.3.0",
+    "@aretino-chant/editor": "^0.4.0",
     "@aretino-chant/gabc2aretino": "^0.2.0"
   }
 }

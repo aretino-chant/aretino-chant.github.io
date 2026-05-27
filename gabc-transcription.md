@@ -109,8 +109,9 @@ chant tradition they follow.
 At the same time, Aretino is not a flattened modern staff transcription. It keeps
 the notational elements that are crucial for performance and for the
 modernized Metz-Gothic way of reading Gregorian melody: neume grouping, text
-alignment, accidentals, bar signs, mora, episema, quilisma, ictus, liquescence,
-and other marks that performers may choose to make rhythmically significant.
+alignment, accidentals, bar signs, mora, episema, quilisma, ictus, plica,
+liquescent small notes, and other marks that performers may choose to make
+rhythmically significant.
 
 The result should be a score that is musically responsible but usable. A trained
 schola can still make refined decisions from it. A lay schola can still consume

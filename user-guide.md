@@ -23,7 +23,7 @@ The Aretino notation format is freely usable; please link to our website in publ
 - **five-line** staff,
 - **treble clef** by default,
 - traditional **round** noteheads (not square),
-- but **Gregorian rhythm** and notation system: mora, episema, liquescence, quilisma, ligatures.
+- but **Gregorian rhythm** and notation system: mora, episema, plica, quilisma, liquescent neumes, ligatures.
 
 The name alludes to Guido d'Arezzo (in Latin *Guido Aretinus*) — the spiritual successor of the old *Guido HU/EN* TTF font, but an independent, semantic format.
 
@@ -78,7 +78,7 @@ Chapter IV of the essay summarizes the principles in ten points. Aretino essenti
    - or by inserting a **one-notehead-width empty gap** between the small groups.
 7. **Note repetitions** may be freely used; if the repeated note starts a descending motion, a stem may be added to the second note.
 8. **Comma (plica)** in two ways: a small internal separator, or attached to a note to separate it within the group.
-9. **Liquescence** may be indicated with a reduced-size note — or, if such a sign is unavailable, with a note marked with a plica.
+9. **Liquescence** is normally indicated with a reduced-size notehead — or, if such a sign is unavailable, with a note marked with a plica.
 10. **The number of staff lines and the choice of clef are independent** of the essence of the system.
 
 Points 4–5 are the heart of the system: the **stem descending from the peak** and the **curved/oblique line connecting descending notes**. This is what makes Gregorian notation both **modernly readable** and **neumatic**.
@@ -168,7 +168,7 @@ Everything that is essential to the Dobszay–Szendrei school:
 - **virga stem** (point 4) — automatically, on every local maximum;
 - **descending connecting line** (point 5) — automatically, adjusted by interval;
 - **neume grouping with a notehead-width gap** (point 6) — the `/` operator;
-- **mora, episema, liquescence, quilisma** (points 8–9) — as suffix characters;
+- **mora, episema, plica, quilisma, and liquescent small notes** (points 8–9) — as suffix characters;
 - **independence of the staff-line and clef question** (point 10) — the clef can be changed without affecting the `a–n` notation.
 
 Aretino therefore does **not break** with the tradition — on the contrary: it **automates the essence**, so the user only needs to focus on the musical content.
@@ -296,7 +296,7 @@ A **suffix character** immediately after the letter modifies the base form of th
 | `d'` | **virga** | punctum with a downward stem on the left |
 | `dw` | **quilisma** | striped, zigzag-contour notehead |
 | `dt` | **tenor note** | open notehead with vertical bars on both sides |
-| `ds` | **small note** | reduced-size notehead; `s` combines with other shapes |
+| `ds` | **liquescent / small note** | reduced-size notehead; `s` combines with other shapes |
 
 ### Examples
 
@@ -304,7 +304,7 @@ A **suffix character** immediately after the letter modifies the base form of th
 (g2) d d' dw dt ds
 ```
 
-Left to right: punctum, virga, quilisma, tenor note, and small note — all at the same staff position. Uppercase letters raise a note by an octave; they do not mean virga.
+Left to right: punctum, virga, quilisma, tenor note, and liquescent/small note — all at the same staff position. Uppercase letters raise a note by an octave; they do not mean virga.
 
 The **virga** often appears automatically on ligature peaks (see the [Ligatures](#11-ligatures--neumes) section), but can also be used manually to indicate the internal grouping of longer melismas.
 
@@ -327,8 +327,8 @@ Combinable suffixes after the notehead, **without a space**:
 | `.` | **mora** | to the right of the notehead; indicates a long note |
 | `_` | **episema** | short horizontal line above the notehead. Consecutive episemata are merged by the system. |
 | `-` | **ictus** | small vertical line above the notehead (in the space) |
-| `~` | **liquescent** | small "tail" at the upper right of the notehead |
-| `s` | **small** | cue-sized notehead; combines with punctum, virga, quilisma, or tenor |
+| `~` | **plica** | small "tail" at the upper right of the notehead |
+| `s` | **liquescent / small** | reduced-size notehead; combines with punctum, virga, quilisma, or tenor |
 
 ```aretino
 (g2) d d. d_ d- d~ ds d_e_d_

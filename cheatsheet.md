@@ -12,12 +12,12 @@
 | Notehead ||
 |---|---|
 | `d`, `d'`, `dt` | punctum, virga, tenor |
-| `dw`, `ds` | quilisma, small note |
+| `dw`, `ds` | quilisma, liquescent/small note |
 
 | Suffix ||
 |---|---|
-| `d.`, `d_`, `d-`, `d~` | mora, episema, ictus, liquescent |
-| `ds` | small/cue-sized note; combines with other shapes |
+| `d.`, `d_`, `d-`, `d~` | mora, episema, ictus, plica |
+| `ds` | liquescent/small note; combines with other shapes |
 | `df/gh`, `df / gh` | `/` = visual neume separator |
 
 | Dividers / bars | |

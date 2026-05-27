@@ -52,7 +52,7 @@ export default defineConfig({
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: CODE_REPO }],
     footer: {
-      message: 'Released under MPL-2.0 (code) and CC-BY-4.0 (docs).',
+      message: '<span class="footer-motto"><abbr title="Ut in omnibus glorificetur Deus">UIOGD</abbr> <span aria-hidden="true">&middot;</span> <span class="footer-motto__latin">Ut in omnibus glorificetur Deus</span></span><br><span class="footer-motto__note">That in all things God may be glorified.</span><br>Released under MPL-2.0 (code) and CC-BY-4.0 (docs).',
       copyright: 'Copyright © 2026 Bertalan Fodor and contributors',
     },
   },

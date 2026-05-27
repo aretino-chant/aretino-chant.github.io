@@ -40,3 +40,7 @@ Edit the source below — the notation updates as you type.
 (g2) g A B g. AB A g e_d_ , g AB Ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 ```
+
+## Official editor
+
+For fuller work, use the [official online editor](/editor). It is still a text editor, but it can be used as a "quasi-graphical" editor: keep the preview visible while you type, and every change is rendered immediately. This lets you work from the notation you see, with instant feedback, while keeping the source in plain text.

@@ -1,6 +1,6 @@
 # Aretino — User Guide
 
-> Hungarian Catholic Gregorian notation in text format.
+> Gregorian notation in text format with modern staff and symbols
 
 ```aretino
 (g2) g A B g. AB A g e_d_ , g AB Ag g. ||
@@ -18,7 +18,7 @@ The Aretino notation format is freely usable; please link to our website in publ
 
 ## 1. What is Aretino?
 
-**Aretino** is a text-based format for notating Hungarian Catholic Gregorian practice — following the conventions of László Dobszay and Janka Szendrei:
+**Aretino** is a text-based format for notating Gregorian chants — following the conventions of László Dobszay and Janka Szendrei:
 
 - **five-line** staff,
 - **treble clef** by default,

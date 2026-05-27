@@ -29,6 +29,7 @@ const previewError = ref('')
 const previewWidth = ref(DEFAULT_PREVIEW_WIDTH)
 const saveError = ref('')
 const mounted = ref(false)
+const editorFocused = ref(false)
 const fullscreen = ref(false)
 const paperSize = ref('responsive')
 const splitEditorHeight = ref(400)
@@ -43,6 +44,8 @@ let caretAnchorInfo = null
 let highlightRequestId = 0
 let snippetShadow = null
 let snippetInner = null
+let focusEventsHost = null
+let focusOutTimer = null
 
 onMounted(async () => {
   const editorModule = await import('@aretino-chant/editor')
@@ -69,6 +72,11 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   resizeObserver?.disconnect()
   resizeObserver = null
+  unbindEditorFocusEvents()
+  if (focusOutTimer != null) {
+    window.clearTimeout(focusOutTimer)
+    focusOutTimer = null
+  }
   if (fullscreen.value) document.body.style.overflow = ''
 })
 
@@ -100,6 +108,52 @@ function syncEditorElement() {
   if (host.value !== source.value) host.value = source.value
   host.zoom = EDITOR_ZOOM
   host.preview = false
+  bindEditorFocusEvents(host)
+}
+
+function bindEditorFocusEvents(host) {
+  if (focusEventsHost === host) return
+  unbindEditorFocusEvents()
+  focusEventsHost = host
+  const target = host.shadowRoot ?? host
+  target.addEventListener('focusin', handleEditorFocusIn)
+  target.addEventListener('focusout', handleEditorFocusOut)
+  editorFocused.value = editorHasDomFocus(host)
+}
+
+function unbindEditorFocusEvents() {
+  if (!focusEventsHost) return
+  const target = focusEventsHost.shadowRoot ?? focusEventsHost
+  target.removeEventListener('focusin', handleEditorFocusIn)
+  target.removeEventListener('focusout', handleEditorFocusOut)
+  focusEventsHost = null
+}
+
+function editorHasDomFocus(host = editorHost()) {
+  return !!host && (document.activeElement === host || !!host.shadowRoot?.activeElement)
+}
+
+function editorHasFocus() {
+  return editorFocused.value || editorHasDomFocus()
+}
+
+function handleEditorFocusIn() {
+  if (focusOutTimer != null) {
+    window.clearTimeout(focusOutTimer)
+    focusOutTimer = null
+  }
+  editorFocused.value = true
+  highlightPreview()
+}
+
+function handleEditorFocusOut() {
+  if (focusOutTimer != null) window.clearTimeout(focusOutTimer)
+  focusOutTimer = window.setTimeout(() => {
+    focusOutTimer = null
+    if (editorHasDomFocus()) return
+    editorFocused.value = false
+    snippetVisible.value = false
+  }, 0)
 }
 
 function updatePreviewWidth() {
@@ -167,7 +221,7 @@ function handlePreviewClick(event) {
 
 function updateSnippet() {
   const host = editorHost()
-  if (!host || !snippetEl.value || !snippetShadow || !snippetInner || !caretAnchorInfo) {
+  if (!host || !editorHasFocus() || !snippetEl.value || !snippetShadow || !snippetInner || !caretAnchorInfo) {
     snippetVisible.value = false
     return
   }

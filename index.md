@@ -14,20 +14,23 @@ hero:
       text: Official editor
       link: /editor
     - theme: alt
-      text: GABC editor alternative
+      text: GABC transcription
       link: /gabc-transcription
     - theme: alt
       text: Cheatsheet
       link: /cheatsheet
 
 features:
-  - title: Position is pitch
-    details: A letter code names the staff line or space, so the source stays readable and diff-friendly.
-  - title: Semantic markers
-    details: Mora, episema, ictus, liquescence and ligatures are suffix characters — not magic glyph files.
-  - title: Renders in the browser
-    details: The parser and SVG renderer run client-side. Every example on this site is a live, editable editor.
+  - title: Transcription, not replacement
+    details: Aretino does not try to cover everything GABC and Gregorio do. It is a target notation for practical chant transcription.
+  - title: Modern staff, Gregorian logic
+    details: The notation uses familiar staff reading without turning chant into ordinary modern rhythm or note-by-note melody.
+  - title: Neumes remain units
+    details: Melodic figures stay visibly grouped through stems, descending connections, spacing, text alignment, and Gregorian signs.
+
 ---
+
+Aretino is a staff-based chant notation concept for transcribing Gregorian music in a form readable to modern musicians, without turning it into ordinary modern notation. It preserves the neumatic logic of chant by keeping the sung figure of each syllable as a musical unit, even while using modern staff orientation, round noteheads, and familiar notation symbols. It follows the Gregorian transcription method  promoted by [László Dobszay](https://zti.hu/index.php/en/early-music/history-of-the-department/laszlo-dobszay) and Janka Szendrei in Hungarian Catholic chant practice. 
 
 ## Try it
 
@@ -37,7 +40,3 @@ Edit the source below — the notation updates as you type.
 (g2) g A B g. AB A g e_d_ , g AB Ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 ```
-
-Aretino is a text format for notating Gregorian chant, following the Hungarian
-Catholic practice of [László Dobszay](https://zti.hu/index.php/en/early-music/history-of-the-department/laszlo-dobszay) and Janka Szendrei. The reference parser and
-renderer are published as [`@aretino-chant/core`](https://www.npmjs.com/package/@aretino-chant/core).

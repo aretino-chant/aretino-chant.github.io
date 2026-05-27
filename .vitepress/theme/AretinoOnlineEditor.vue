@@ -34,13 +34,21 @@ const paperSize = ref('responsive')
 const splitEditorHeight = ref(400)
 const isDragging = ref(false)
 
+const snippetEl = ref(null)
+const snippetVisible = ref(false)
 let resizeObserver = null
 let highlightAtCaret = null
+let sourceSpanFromPreviewClick = null
+let caretAnchorInfo = null
 let highlightRequestId = 0
+let snippetShadow = null
+let snippetInner = null
 
 onMounted(async () => {
   const editorModule = await import('@aretino-chant/editor')
   highlightAtCaret = editorModule.highlightAtCaret
+  sourceSpanFromPreviewClick = editorModule.sourceSpanFromPreviewClick
+  caretAnchorInfo = editorModule.caretAnchorInfo
   await customElements.whenDefined('aretino-editor')
 
   mounted.value = true
@@ -50,6 +58,12 @@ onMounted(async () => {
   syncEditorElement()
   observePreview()
   renderPreview()
+
+  if (snippetEl.value) {
+    snippetShadow = snippetEl.value.attachShadow({ mode: 'open' })
+    snippetInner = document.createElement('div')
+    snippetShadow.appendChild(snippetInner)
+  }
 })
 
 onBeforeUnmount(() => {
@@ -135,7 +149,73 @@ function highlightPreview(caret = currentCaret()) {
   void nextTick(() => {
     if (requestId !== highlightRequestId || !mounted.value || !previewEl.value || !highlightAtCaret) return
     highlightAtCaret(previewEl.value, Number.isFinite(position) ? position : 0)
+    updateSnippet()
   })
+}
+
+function handlePreviewClick(event) {
+  if (!sourceSpanFromPreviewClick || !previewEl.value) return
+  const span = sourceSpanFromPreviewClick(event, previewEl.value)
+  if (span) {
+    const host = editorHost()
+    if (host) {
+      host.caret = span.srcEnd
+      host.focus()
+    }
+  }
+}
+
+function updateSnippet() {
+  const host = editorHost()
+  if (!host || !snippetEl.value || !snippetShadow || !snippetInner || !caretAnchorInfo) {
+    snippetVisible.value = false
+    return
+  }
+
+  const head = host.selection?.head ?? host.caret ?? 0
+  const len = (host.value ?? '').length
+  const html =
+    host.getSourceHtml(Math.max(0, head - 10), head) +
+    '<b class="cur" style="display:inline-block;transform:scaleY(2);color:rgba(234,88,12,.85)">|</b>' +
+    host.getSourceHtml(head, Math.min(len, head + 10))
+
+  try {
+    snippetShadow.adoptedStyleSheets = Array.from(host.shadowRoot.adoptedStyleSheets)
+  } catch {}
+  try {
+    const editorPart = host.shadowRoot?.querySelector('[part~="editor"]') ?? host.shadowRoot?.firstElementChild
+    if (editorPart) {
+      const cs = getComputedStyle(editorPart)
+      snippetEl.value.style.fontFamily = cs.fontFamily
+      //snippetEl.value.style.fontSize = cs.fontSize
+      snippetEl.value.style.color = cs.color
+    }
+  } catch {}
+  snippetInner.innerHTML = html
+
+  const info = caretAnchorInfo(previewEl.value)
+  if (!info) { snippetVisible.value = false; return }
+
+  const { rect, isLyric, staffTopPx } = info
+  const el = snippetEl.value
+  const tipH = el.getBoundingClientRect().height || 32
+
+  let y
+  if (isLyric) {
+    const yBelow = rect.bottom + 8
+    y = (yBelow + tipH <= window.innerHeight - 4) ? yBelow : Math.max(4, rect.top - tipH - 8)
+  } else {
+    const yAbove = staffTopPx - tipH - 8
+    y = yAbove >= 4 ? yAbove : staffTopPx + 8
+  }
+
+  const cx = rect.left + rect.width / 2
+  const tipW = el.getBoundingClientRect().width || 320
+  const x = Math.max(4, Math.min(cx - tipW / 2, window.innerWidth - tipW - 8))
+
+  el.style.left = x + 'px'
+  el.style.top = y + 'px'
+  snippetVisible.value = true
 }
 
 function toggleFullscreen() {
@@ -369,6 +449,7 @@ watch(paperSize, () => renderPreview(), { flush: 'post' })
             class="online-editor__preview"
             :class="{ 'online-editor__preview--paper': paperSize !== 'responsive' }"
             v-html="previewSvg"
+            @click="handlePreviewClick"
           />
           <p v-if="previewError" class="online-editor__preview-error" role="alert">{{ previewError }}</p>
 
@@ -383,5 +464,13 @@ watch(paperSize, () => renderPreview(), { flush: 'post' })
 
       </div>
     </ClientOnly>
+
+    <div
+      v-if="mounted"
+      ref="snippetEl"
+      class="online-editor__snippet"
+      :class="{ 'online-editor__snippet--visible': snippetVisible }"
+      aria-hidden="true"
+    ></div>
   </div>
 </template>

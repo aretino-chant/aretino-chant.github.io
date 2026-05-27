@@ -246,6 +246,7 @@
   overflow: auto;
   padding: 0.75rem;
   background: #fff;
+  margin-top: 16px;
 }
 
 .online-editor__preview svg {
@@ -314,6 +315,37 @@
 .online-editor__save-error {
   color: var(--vp-c-danger-1);
   font-size: 0.82rem;
+}
+
+
+/* ── Source snippet popup ──────────────────────────────── */
+
+.online-editor__snippet {
+  position: fixed;
+  z-index: 200;
+  pointer-events: none;
+  background: #fff;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  padding: 4px 10px;
+  max-width: min(400px, 90vw);
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.online-editor__snippet--visible {
+  opacity: 1;
+}
+
+/* Pointer cursor over clickable (source-mapped) SVG tokens */
+.online-editor__preview [data-src-start] {
+  cursor: pointer;
 }
 
 /* ── Responsive ────────────────────────────────────────── */

@@ -64,6 +64,9 @@ onMounted(async () => {
 
   if (snippetEl.value) {
     snippetShadow = snippetEl.value.attachShadow({ mode: 'open' })
+    const curStyle = document.createElement('style')
+    curStyle.textContent = '.cur{display:inline-block;width:0;position:relative;vertical-align:text-bottom;}.cur::before{content:\'\';position:absolute;left:0;top:-9999px;bottom:-9999px;width:1px;background:rgba(234,88,12,0.85);}'
+    snippetShadow.appendChild(curStyle)
     snippetInner = document.createElement('div')
     snippetShadow.appendChild(snippetInner)
   }
@@ -229,9 +232,9 @@ function updateSnippet() {
   const head = host.selection?.head ?? host.caret ?? 0
   const len = (host.value ?? '').length
   const html =
-    host.getSourceHtml(Math.max(0, head - 10), head) +
-    '<b class="cur" style="display:inline-block;transform:scaleY(2);color:rgba(234,88,12,.85)">|</b>' +
-    host.getSourceHtml(head, Math.min(len, head + 10))
+    host.getSourceHtml(Math.max(0, head - 16), head) +
+    '<b class="cur"></b>' +
+    host.getSourceHtml(head, Math.min(len, head + 16))
 
   try {
     snippetShadow.adoptedStyleSheets = Array.from(host.shadowRoot.adoptedStyleSheets)

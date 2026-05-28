@@ -13,9 +13,9 @@ Requires Node 18+ (CI uses Node 22).
 
 ```bash
 npm ci
-npm run docs:dev      # local dev server
-npm run docs:build    # static build into .vitepress/dist
-npm run docs:preview  # preview the built site
+npm run dev      # local dev server
+npm run build    # static build into .vitepress/dist
+npm run preview  # preview the built site
 ```
 
 ## Deploy

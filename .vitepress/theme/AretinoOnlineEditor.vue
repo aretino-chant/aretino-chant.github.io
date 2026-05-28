@@ -425,6 +425,9 @@ watch(paperSize, () => renderPreview(), { flush: 'post' })
           @click="paperSize = size.value"
         >{{ size.label }}</button>
       </div>
+      <p class="online-editor__hint">
+        Use <kbd>Ctrl</kbd>+<kbd>Space</kbd> for autocomplete.
+      </p>
       <button type="button" class="online-editor__btn" @click="toggleFullscreen">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="online-editor__icon" aria-hidden="true">
           <path d="M3 6V3h3M10 3h3v3M13 10v3h-3M6 13H3v-3"/>
@@ -449,6 +452,9 @@ watch(paperSize, () => renderPreview(), { flush: 'post' })
         >
           <!-- Above editor: fullscreen toggle (normal mode only) -->
           <div v-if="!fullscreen" class="online-editor__col-header">
+            <p class="online-editor__hint">
+              Use <kbd>Ctrl</kbd>+<kbd>Space</kbd> for autocomplete.
+            </p>
             <button type="button" class="online-editor__btn" @click="toggleFullscreen">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="online-editor__icon" aria-hidden="true">
                 <path d="M6 2H2v4M14 6V2h-4M2 10v4h4M10 14h4v-4"/>

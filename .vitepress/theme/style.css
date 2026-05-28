@@ -84,6 +84,35 @@
   margin-bottom: 0.5rem;
 }
 
+.online-editor__hint {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.online-editor__hint kbd {
+  display: inline-block;
+  min-width: 1.35em;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.online-editor__fs-header .online-editor__hint {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ── Paper size segmented control ─────────────────────── */
 
 .online-editor__paper-controls {

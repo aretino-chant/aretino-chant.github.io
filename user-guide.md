@@ -239,7 +239,7 @@ You can also use special characters, and formatting.
 w: O Lord, hear my hum-ble call to you!
 ```
 
-Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `lyricFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, and `staffGap`.
+Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `textFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, and `staffGap`.
 
 The header is **optional** — you can start immediately with the melody line. Unknown header keys are kept in the parsed source but are not drawn.
 

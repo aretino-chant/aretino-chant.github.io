@@ -37,7 +37,7 @@ Aretino is a staff-based chant notation concept for transcribing Gregorian music
 Edit the source below — the notation updates as you type.
 
 ```aretino
-(g2) g A B g. AB A g e_d_ , g AB Ag g. ||
+(g2) g a b g. ab a g e_d_ , g ab ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 ```
 

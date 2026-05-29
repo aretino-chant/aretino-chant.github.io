@@ -3,7 +3,7 @@
 > Gregorian notation in text format with modern staff and symbols
 
 ```aretino
-(g2) g A B g. AB A g e_d_ , g AB Ag g. ||
+(g2) g a b g. ab a g e_d_ , g ab ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
 ```
 
@@ -14,7 +14,7 @@ We also provide an [official online editor](/editor) with syntax highlighting, i
 
 The Aretino notation format is freely usable; please link to our website in public materials: [aretino-chant.github.io](https://aretino-chant.github.io)
 
----
+
 
 ## 1. What is Aretino?
 
@@ -30,12 +30,12 @@ The name alludes to Guido d'Arezzo (in Latin *Guido Aretinus*) — the spiritual
 ### Design Philosophy in Brief
 
 | Principle | What it means in practice |
-|---|---|
+|||
 | **Position = pitch** | The letter code determines which line or space the note occupies. |
 | **Semantic markers** | Episema, mora, etc. are suffix characters, not magic glyph files. |
 | **Separate text/verse lines** | `w:` lyric lines and `W:` verse lines are independently meaningful. |
 
----
+
 
 ## 2. Theoretical Background — the "Modernized Metz-Gothic" Transcription
 
@@ -49,7 +49,7 @@ In Dobszay's sharp formulation, the real difficulty of Gregorian transcription i
 > but rather what kind of melodic figure the syllables of the text should be sung on.
 > The notation is the indication of this melodic figure, and as a unified sign expresses a figure of 3–4 notes."
 
-In other words: a Gregorian melody is sung well by someone who **conceives and renders the melodic figure for a single syllable as a unit** — not building up the melisma note by note. A good modern transcription, therefore, is one that suggests this "neumatic" way of hearing to the reader.
+In other words: a Gregorian melody is sung well by someone who **conceives and renders the melodic figure for a single syllable as a unit** — not building up the melisma note by note. a good modern transcription, therefore, is one that suggests this "neumatic" way of hearing to the reader.
 
 ### Two Classic Dead Ends
 
@@ -83,7 +83,7 @@ Chapter IV of the essay summarizes the principles in ten points. Aretino essenti
 
 Points 4–5 are the heart of the system: the **stem descending from the peak** and the **curved/oblique line connecting descending notes**. This is what makes Gregorian notation both **modernly readable** and **neumatic**.
 
----
+
 
 ## 3. The Guido Font as Intellectual Predecessor
 
@@ -103,7 +103,7 @@ The Guido was **not a program but a font** — the user set the font to Guido in
 A typical source line in Guido looked like this:
 
 ```
-<-4--4t---tT4--t4--tg3--tG2--5zZ5--4uU6---7uU6Z5T4
+<-4--4ttT4--t4--tg3--tG2--5zZ5--4uU67uU6Z5T4
 ```
 ![Guido example](/guido-pelda.png)
 
@@ -114,7 +114,7 @@ torculus, `4 u U 6` = another torculus, etc. Moreover, certain markings could no
 The same thing in Aretino — simply specify the note names and everything is automatic:
 
 ```aretino
-(g2) g gh hg h'/g hf he hih gji jjihg
+(g2) g ga ag a'/g af ae aba gCb CCbag
 ```
 
 ### What Did the Guido Bring?
@@ -126,7 +126,7 @@ Revolutionarily much:
 - it **preserved the principles of Metz-Gothic notation** — stems, curved connecting lines, plica were all accessible,
 - and it was inexpensive: no specialist, no typographic engraving needed.
 
----
+
 
 ## 4. Why Does Aretino Go Further?
 
@@ -136,12 +136,12 @@ The Guido is **character-level, manual typography** — the user "draws" with th
 - **there is no automation**: stems, connecting lines, neume spacing must all be set by hand;
 - **there is no semantic connection between text and notes**: the syllables of "Ky-ri-e" only visually stand below the notes;
 - **no line break, no justification**: every line is manually cut;
-- **the source is not interpretable**: the character sequence `<-4--4t---tT4` is only a drawing of Guido font positions, not a semantic notation — very cumbersome to edit.
+- **the source is not interpretable**: the character sequence `<-4--4ttT4` is only a drawing of Guido font positions, not a semantic notation — very cumbersome to edit.
 
 **Aretino** implements the same notational tradition — the modernized Metz-Gothic transcription — as a **semantic, text-based format**. What this entails:
 
 | Aspect | Guido (TTF font) | Aretino (semantic format) |
-|---|---|---|
+||||
 | **Representation** | every variant of a notehead is a separate character | noteheads always mean the same thing; there are modifier characters |
 | **Virga, stemming** | placed by the user, always manually | **automatic**: the renderer places a stem on every local maximum, but can also be set manually |
 | **Descending connecting line** | separate key combination | **automatic**: the renderer draws it for every descent, adjusted by interval |
@@ -173,12 +173,12 @@ Everything that is essential to the Dobszay–Szendrei school:
 
 Aretino therefore does **not break** with the tradition — on the contrary: it **automates the essence**, so the user only needs to focus on the musical content.
 
----
+
 
 ## 5. Your First Score
 
 ```aretino
-(g2) c e g A g.
+(g2) c e g a g.
 ```
 
 This draws a treble clef (G on the 2nd line) and then five punctums — the last with a mora (duration dot).
@@ -188,7 +188,7 @@ A minimal example with text and header:
 ```aretino
 %title: Salve Regina
 %%
-(g2) c e g A g.
+(g2) c e g a g.
 w: Sal-ve, Re-gí-na,
 ```
 
@@ -201,7 +201,7 @@ The three main building blocks:
 Body lines are classified by prefix:
 
 | Prefix | Meaning |
-|---|---|
+|||
 | `w:` | lyric syllables aligned under the preceding music line |
 | `W:` | free-flowing verse text, not note-aligned |
 | `n:` | music continuation after lyrics |
@@ -210,14 +210,14 @@ Body lines are classified by prefix:
 
 After a `w:` line, an unprefixed line continues the same lyric line. After a `W:` line, an unprefixed line becomes an explicit line break inside that verse.
 
----
+
 
 ## 6. Header
 
 Header lines begin with a percent sign (`%key: value`). The `%%` marker closes the header; it is optional, but recommended whenever a header is present.
 
 | Key | Description |
-|---|---|
+|||
 | `title` | Title, centered, bold. |
 | `subtitle` | Smaller centered subtitle below the title. |
 | `caption` | Caption, right-aligned, italic. |
@@ -235,7 +235,7 @@ You can also use special characters, and formatting.
 %rubric: Call for prayer
 %option: lyricDistance=0.5
 %%
-(g2) h h h g h j i g h. ||
+(g2) a a g a C b a g a. ||
 w: O Lord, hear my hum-ble call to you!
 ```
 
@@ -243,14 +243,14 @@ Use either `name=value` or `name: value` for `%option:` headers. Numbers are par
 
 The header is **optional** — you can start immediately with the melody line. Unknown header keys are kept in the parsed source but are not drawn.
 
----
+
 
 ## 7. Clefs
 
 The clef is specified in parentheses: letter + line number.
 
 | Source | Clef | Note |
-|---|---|---|
+||||
 | `(g2)` | G-clef on line 2 | Treble clef |
 | `(f4)` | F-clef on line 4 | Bass clef |
 | `(c3)` | C-clef on line 3 | Small square C-sign (not a traditional alto clef). |
@@ -258,40 +258,31 @@ The clef is specified in parentheses: letter + line number.
 The clef is usually the first element of the melody line. You can also change the clef mid-line:
 
 ```aretino
-(g2) d f g h  (c3) e g h (f4) i h g
+(g2) d f g a  (c3) e g a (f4) C b g
 ```
 
 After a line break, the renderer automatically draws the current clef.
 
----
+
 
 ## 8. Pitch
 
-Notes are represented by the lowercase letters **a–n**. The letter always indicates the same line or space, **regardless of the clef**:
+Notes in the middle  octave are represented by the lowercase letters **a–g**. The letter always indicates the same line or space, **regardless of the clef**. Outside of the middle octave, use the capital letters:
 
 ```aretino
-a b c d e f g h i j k l m n
-w: a b c d e f g h i j k l m n
+A B c d e f g a b  C D E F G
+w: A B c d e f g a b C D E F G
 ```
 
 So in treble clef, `c` is C on line 1, `g` is B on line 3, etc.
 In bass clef, the same `c` on line 1 becomes E (because the clef changes, but the line position does not).
-
-### Raised Octave — Uppercase letters
-
-```aretino
-A B C D E F G H I J K L M N
-w: A B C D E F G H I J K L M N
-```
-
----
 
 ## 9. Notehead Types
 
 A **suffix character** immediately after the letter modifies the base form of the notehead:
 
 | Source | Name | Appearance |
-|---|---|---|
+||||
 | `d` | **punctum** | filled round notehead, no stem |
 | `d'` | **virga** | punctum with a downward stem on the left |
 | `dw` | **quilisma** | striped, zigzag-contour notehead |
@@ -316,14 +307,12 @@ The **quilisma** always occurs within a ligature:
 
 Here `w` after `f` indicates that the `f` is a quilisma.
 
----
-
 ## 10. Modifier Suffixes
 
 Combinable suffixes after the notehead, **without a space**:
 
 | Suffix | Name | Meaning |
-|---|---|---|
+||||
 | `.` | **mora** | to the right of the notehead; indicates a long note |
 | `_` | **episema** | short horizontal line above the notehead. Consecutive episemata are merged by the system. |
 | `-` | **ictus** | small vertical line above the notehead (in the space) |
@@ -336,14 +325,14 @@ Combinable suffixes after the notehead, **without a space**:
 
 Modifiers can be combined freely: for example, `d._`, `d-~`, or `d's`.
 
----
+
 
 ## 11. Ligatures — Neumes
 
 Notes written **consecutively without a space** form a ligature (neume). This is one of the most fundamental mechanisms in Aretino.
 
 | Source | Name | Meaning |
-|---|---|---|
+||||
 | `df` | **podatus** | ascending two-note figure, with an arc from lower to upper |
 | `fd` | **clivis** | descending two-note figure, with a calligraphic curved line |
 | `dfd` | **torculus** | three-note: up-down |
@@ -384,12 +373,12 @@ The `/` (slash) inserts a **small breathing gap** within a ligature — making t
 
 You may put spaces around `/`; they are ignored. The slash is still a visual separator inside the same ligature, not a new syllable by itself.
 
----
+
 
 ## 13. Bar Lines and Dividers
 
 | Source | Name | Function |
-|---|---|---|
+||||
 | `,` | short bar line (quarter bar) | small caesura, breath |
 | `;` | half bar line | end of a phrase section |
 | `\|` | full bar line | end of a sentence |
@@ -409,7 +398,7 @@ Bar lines can also be written in parentheses: `(,)`, `(;)`, `(|)`, `(|0)`, `(||)
 
 If something appears in parentheses in the text, it is aligned under the next bar line; in the example below, `(*)` indicates that an asterisk should be written under the short bar line.
 
----
+
 
 ## 14. Line-End Justification, Manual Spacing, and Line Breaks
 
@@ -420,17 +409,17 @@ The Aretino renderer tries to distribute neumes/syllables favorably, but sometim
 The `*` is an empty "flexible" spacer that lets you influence where a justified line has more breathing room:
 
 ```aretino
-(g2) d f * g h * g (z) f d  (||)
+(g2) d f * g a * g (z) f d  (||)
 ```
 
 Multiple `*` can be used in one line; the remaining space is evenly distributed among them.
 
 ### Spacer `(sp)` and `=` — Fixed-Size Gap
 
-If you want a **fixed**-width gap (not flexible like `*`), use the `(sp)` directive. A multiplier can also be given: `(sp2)` = 2× base width, `(sp0.5)` = half width; `=` is equivalent to `(sp)`.
+If you want a **fixed**-width gap (not flexible like `*`), use the `(sp)` directive. a multiplier can also be given: `(sp2)` = 2× base width, `(sp0.5)` = half width; `=` is equivalent to `(sp)`.
 
 ```aretino
-(g2) d f (sp2) g = h ==== f
+(g2) d f (sp2) g = a ==== f
 ```
 
 ### Explicit Line Break `(z)` and `(Z)`
@@ -438,35 +427,35 @@ If you want a **fixed**-width gap (not flexible like `*`), use the `(sp)` direct
 The renderer breaks lines automatically: if a line doesn't fit, it moves the next note to a new line. Explicit line breaks can also be requested:
 
 | Source | Effect |
-|---|---|
+|||
 | `(z)` | forced line break, **justified** — the line fills to the margin |
 | `(Z)` | forced line break, **not** justified — the line is left-aligned |
 
 Use the `(z)` form where the end of a phrase naturally calls for a line break.
 
 ```aretino
-(g2) g h i j (z) g h i j (Z) g h i j ||
+(g2) g a b C (z) g a b C (Z) g a b C ||
 ```
 
 
----
+
 
 ## 15. Accidentals
 
 Accidental tokens use `b / n / #`.
 
 | Source | Name | Meaning |
-|---|---|---|
+||||
 | `(b)` | flat | a single flat at the height of the `i` note (line 3, B note) |
 | `(n)` | natural | cancels the preceding alteration |
 | `(#)` | sharp | raised by a semitone |
 
-The letter before the accidental gives the staff position: `(eb)` = flat on `e`, `(fb)` = flat on `f`, etc. If the pitch letter is omitted, the accidental appears at the default `i` position, so `(b)` means the same height as `(ib)`.
+The letter before the accidental gives the staff position: `(eb)` = flat on `e`, `(fb)` = flat on `f`, etc. If the pitch letter is omitted, the accidental appears at the default `b` position.
 
 ### Example
 
 ```aretino
-(g2) (ib) (sp) (in) (sp) (i#) (sp) : h (ib) hih fgh. g(ib)hih
+(g2) (bb) (sp) (bn) (sp) (b#) (sp) : a (Cb) aba fga. g(bb)aba
 ```
 
 Accidentals are kept together with the following neume. They may also be written inside a neume, and an accidental remains active for the same staff position until the next bar line or a replacement accidental. If a measure wraps to a new system, the renderer repeats the active accidental before the first affected neume on the new system.
@@ -476,7 +465,7 @@ Accidentals are kept together with the following neume. They may also be written
 The key signature is placed after the clef. The renderer automatically displays it after the clef at the beginning of each new line, even if the clef is only written once at the start of the piece.
 
 | Source | Meaning |
-|---|---|
+|||
 | `(K:b)` | flat key signature at the default `i` height |
 | `(K:eb)` | flat on the `e` staff position |
 | `(K:b eb)` | multiple accidentals — separated by spaces |
@@ -485,12 +474,12 @@ The key signature is placed after the clef. The renderer automatically displays 
 ```aretino
 %title: Example with Key Signature
 %%
-(g2) (K:F# C#) d e f g h i j k (||)
+(g2) (K:F# C#) d e f g a b C D (||)
 ```
 
-The key signature is repeated at the beginning of each new line. A subsequent `(K:...)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
+The key signature is repeated at the beginning of each new line. a subsequent `(K:...)` token changes the key signature from that point (it appears in place, and the new sign also appears at the beginning of subsequent lines). `(K:)` cancels the key signature.
 
----
+
 
 ## 16. Text, Stanzas, and Verses
 
@@ -506,7 +495,7 @@ The layout algorithm tries to place the text economically and aesthetically. Thi
 Useful lyric constructs:
 
 | Construct | Meaning |
-|---|---|
+|||
 | space | word boundary |
 | `-` | syllable boundary within a word |
 | `~` | non-breaking space inside one syllable |
@@ -529,7 +518,7 @@ w: Praise to the Pas-chal Vic-tim now.
 Use `W:` for psalm-verse style text that should flow freely instead of syllable-by-syllable note alignment. It automatically indents explicit and automatic line breaks. Formatting directives can be used as well.
 
 ```aretino
-(g2) f g A f. , gA g f d_c_ , f gA gf f. ||
+(g2) f g a f. , ga g f d_c_ , f ga gf f. ||
 w: Al-le-lu-ia, (*) al-le-lu-ia, al-le-lu-ia.
 W: Glory to the {Father} and to the [Son] * 
 and to the Holy Spirit.
@@ -542,14 +531,14 @@ world without end. Amen.
 If multiple words need to be written **on a single note** — for example, under a reciting tenor note — connect them with `~` without spaces. It renders as a non-breaking space, so the whole unit stays attached to one neume:
 
 ```aretino
-(g2) f g ht g h :
+(g2) f g at g a :
 w: God is Lord,~King~of~all, praise him!
 ```
 
 The `~` sign can also be used as a blank placeholder to skip notes, leaving text out:
 
 ```aretino
-f g ; h g
+f g ; a g
 w: ~ ~ text
 ```
 
@@ -559,12 +548,12 @@ You can use the `n:` (as in _notes_) prefix to continue the previous music line.
 
 ```aretino
 (g2) (K:b) 
-cf f f fghigf fj jklmkj j , 
+cf f f fgabgf fC CDEFDC C , 
 w: {V}a-dis,~{*} pro-pi-ti-á-tor, 
-n: fj j jk k kj j hijih gh igf ; 
+n: fC C CD D DC C abCba ga bgf ; 
 w: ad im-mo-lán-dum pro ó-mni-bus. 
 % bar #3 
-n: f hi j i ji h ijijkjih ghgf , 
+n: f ab C b Cb a CDCDEFDC gagf , 
 w: Non ti-bi oc-cúr-rit Pe-trus, 
 ```
 
@@ -573,7 +562,7 @@ w: Non ti-bi oc-cúr-rit Pe-trus,
 To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~`. The text before `~~` is displayed as a prefix, while the text after `~~` is the part used for horizontal alignment. For the first stanza, manual spacing may still be needed.
 
 ```aretino
-(g2) == g g h g gj j. ' jt
+(g2) == g g a g gC C. ' Ct
 w: 1.~~Glo-ry to the Fa-ther (†) and~the~...
 ```
 
@@ -598,11 +587,11 @@ Simple formatting marks can be placed in `w:` and `W:` lines:
 
 
 ```aretino
-(g2) g h i g. hi h g e_d_ , g hi Ag g. ||
+(g2) g a b g. ab a g e_d_ , g ab ag g. ||
 w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ```
 
----
+
 
 ## 17. Longer Examples
 
@@ -611,16 +600,16 @@ w: {\R.}~~Al-le-lu-ia, <al-le-lu-[ia]>, al-le-lu-ia. (\red{{2x}})
 ```aretino
 %title: Lord, have mercy (XVI.)
 %%
-(g2) (K:ib) h h h g h fg h ||
+(g2) (K:b) a a a g a fg a ||
 w: Lord, have mer-cy up-on us! (<3x>)
 
-h h h g h fg h ||
+a a a g a fg a ||
 w: Christ, have mer-cy up-on us! (<3x>)
 
-h h h g h fg h ||
+a a a g a fg a ||
 w: Lord, have mer-cy up-on us! (<2x>)
 
-h g i g f gh h ||
+a g b g f ga a ||
 w: Lord, have mer-cy up-on us!
 ```
 
@@ -635,75 +624,45 @@ w: Lord, have mer-cy up-on us!
 Wrapping one or more notes (or a whole neume) in `[` … `]` renders **typographical parentheses** around them. This is used for optional notes — for example, notes sung only on certain occasions.
 
 | Source | Meaning |
-|---|---|
-| `[h]` | single note in parentheses |
-| `[hg]` | ligature (neume) in parentheses |
-| `[h i j]` | multiple tokens in parentheses (spaces allowed) |
+|||
+| `[a]` | single note in parentheses |
+| `[ag]` | ligature (neume) in parentheses |
+| `[a b C]` | multiple tokens in parentheses (spaces allowed) |
 
 ```aretino
-(g2) d [h] g [hg] d [h i j] g
+(g2) d [a] g [ag] d [a b C] g
 ```
 
----
+
 
 ## 19. Spanning Marks
 
 Music-line braces draw a visual mark above a span of notes. This is different from lyric text, where `{text}` means bold.
 
 | Source | Meaning |
-|---|---|
-| `{ g h i }` | curly overbrace above the notes |
-| `\arc{ g h i }` | smooth arc above the notes |
-| `\line{ g h i }` | straight line above the notes |
-| `{ g h i }"1."` | overbrace with a label |
+|||
+| `{ g a b }` | curly overbrace above the notes |
+| `\arc{ g a b }` | smooth arc above the notes |
+| `\line{ g a b }` | straight line above the notes |
+| `{ g a b }"1."` | overbrace with a label |
 
 ```aretino
-(g2) { g h i j }"melisma" \arc{ h i j } \line{ j k l m }
+(g2) { g a b C }"melisma" \arc{ g a b } \line{ C D E F }
 ```
 
 Spanning marks can cross automatic or explicit system breaks; the renderer continues the mark on the next row.
 
----
+
 
 ## 20. Labels
 
 A **label** is a short text displayed above a note or neume. Place a double-quoted string immediately after the note or ligature, without a space:
 
 ```aretino
-(g2) hg"Label" d f"\red{{!}}" gh"2x"
+(g2) ag"Label" d f"\red{{!}}" ga"2x"
 ```
 
 Labels can be any (optionally formatted) text; they are rendered above the corresponding note or ligature.
-
----
-
-## 21. Embedding in Markdown
-
-Hosts that support Aretino-in-Markdown recognize fenced code blocks tagged `aretino`:
-
-````markdown
-```aretino
-(g2) g h i ||
-```
-````
-
-Some hosts also accept layout options after the language tag:
-
-````markdown
-```aretino fixed width=18cm
-(g2) h h h g h j i g h. ||
-w: O Lord, hear my hum-ble call to you!
-```
-````
-
-| Option | Meaning |
-|---|---|
-| `fixed` | non-responsive layout; line breaks stay fixed |
-| `width=Ncm` / `width=Nmm` | physical target width, used with `fixed` |
-
-For source-level renderer settings, prefer repeatable `%option:` headers inside the Aretino source.
-
----
 
 ## 22. Getting Help and Support
 

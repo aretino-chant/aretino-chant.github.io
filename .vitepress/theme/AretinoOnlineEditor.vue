@@ -2,7 +2,7 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { renderAretino } from '@aretino-chant/core'
 
-const DEFAULT_SOURCE = `(g2) g A B g. AB A g e_d_ , g AB Ag g. ||
+const DEFAULT_SOURCE = `(g2) g a b g. ab a g e_d_ , g ab ag g. ||
 w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.`
 const EDITOR_ZOOM = 1.2
 const DEFAULT_PREVIEW_WIDTH = 760

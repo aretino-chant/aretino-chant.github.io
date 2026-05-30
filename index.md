@@ -32,15 +32,6 @@ features:
 
 Aretino is a staff-based chant notation concept for transcribing Gregorian music in a form readable to modern musicians, without turning it into ordinary modern notation. It preserves the neumatic logic of chant by keeping the sung figure of each syllable as a musical unit, even while using modern staff orientation, round noteheads, and familiar notation symbols. It follows the Gregorian transcription method  promoted by [László Dobszay](https://zti.hu/index.php/en/early-music/history-of-the-department/laszlo-dobszay) and Janka Szendrei in Hungarian Catholic chant practice. 
 
-## Try it
-
-Edit the source below — the notation updates as you type.
-
-```aretino
-(g2) g a b g. ab a g e_d_ , g ab ag g. ||
-w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
-```
-
 ## Official editor
 
 For fuller work, use the [official online editor](/editor). It is still a text editor, but it can be used as a "quasi-graphical" editor: keep the preview visible while you type, and every change is rendered immediately. This lets you work from the notation you see, with instant feedback, while keeping the source in plain text.

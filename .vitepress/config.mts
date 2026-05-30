@@ -75,6 +75,7 @@ export default defineConfig({
               { text: 'Introduction', link: '/' },
               { text: 'Online editor', link: '/editor' },
               { text: 'GABC editor alternative', link: '/gabc-transcription' },
+              { text: 'Guido TTF converter', link: '/guido-transcription' },
               { text: 'User guide', link: '/user-guide' },
               { text: 'Cheatsheet', link: '/cheatsheet' },
             ],

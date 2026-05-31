@@ -1,13 +1,15 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { renderAretino } from '@aretino-chant/core'
-import { guidoToAretino } from '@aretino-chant/guido2aretino'
+import { guidoToAretino, guidoTextToAretino } from '@aretino-chant/guido2aretino'
 
 const DEFAULT_GUIDO = `<-5--tT4-5¨uU6Z5T4tx-:-tT4R3d1wy-:-2rt²1í¨2rR3E2-3--1-1í-,,-5-5x¨4tT4R3y¨44tg3-¨4tG2W1í-:-2rR3E2-3--1-1í-,,-1t-tT4-5uU6h4¨zZ5¨7uj5x-:-5zZ5¨rR3E2-4--5-5x-,,-1t-tT4-5uU6h4¨zZ5¨7uj5x-:-1t¨tT4¨5uU6h4¨zZ5¨7uj5x-:-5zZ5¨rR3E2-4--5-5x-.`
+const DEFAULT_GUIDO_TEXT = `             Ky-ri--e,           @          e------------le-i-son! Chris-te-e                      e------le-i-son! Ky-ri--e                 e----------le-i-son! Ky-ri--e                 @                      * e----------le-i-son!`
 const ZOOM = 1.25
 const DEFAULT_PREVIEW_WIDTH = 840
 
 const guidoSource = ref(DEFAULT_GUIDO)
+const guidoText = ref(DEFAULT_GUIDO_TEXT)
 const aretinoSource = ref('')
 const transcriptionError = ref('')
 const previewEl = ref(null)
@@ -18,6 +20,7 @@ const mounted = ref(false)
 let resizeObserver = null
 
 const guidoRows = computed(() => Math.min(24, Math.max(10, guidoSource.value.split('\n').length + 2)))
+const guidoTextRows = computed(() => Math.min(12, Math.max(3, guidoText.value.split('\n').length + 1)))
 const aretinoRows = computed(() => Math.min(24, Math.max(10, aretinoSource.value.split('\n').length + 2)))
 
 onMounted(() => {
@@ -34,7 +37,9 @@ onBeforeUnmount(() => {
 
 function transcribeGuido() {
   try {
-    aretinoSource.value = guidoToAretino(guidoSource.value)
+    const notes = guidoToAretino(guidoSource.value)
+    const text = guidoText.value.trim() ? guidoTextToAretino(guidoText.value) : ''
+    aretinoSource.value = text ? `${notes}\nw: ${text}` : notes
     transcriptionError.value = ''
   } catch (error) {
     aretinoSource.value = ''
@@ -83,18 +88,20 @@ function renderPreview() {
 
 function resetSample() {
   guidoSource.value = DEFAULT_GUIDO
+  guidoText.value = DEFAULT_GUIDO_TEXT
   void nextTick(transcribeGuido)
 }
 
 function clearAll() {
   guidoSource.value = ''
+  guidoText.value = ''
   aretinoSource.value = ''
   transcriptionError.value = ''
   previewError.value = ''
   previewSvg.value = ''
 }
 
-watch(guidoSource, () => {
+watch([guidoSource, guidoText], () => {
   transcribeGuido()
 }, { flush: 'post' })
 
@@ -130,6 +137,17 @@ watch(previewWidth, () => {
           <p v-if="transcriptionError" class="gabc-transcriber__error" role="alert">
             {{ transcriptionError }}
           </p>
+
+          <div id="guido-text-label" class="gabc-transcriber__label">Guido text input</div>
+          <textarea
+            v-model="guidoText"
+            class="gabc-transcriber__textarea"
+            :rows="guidoTextRows"
+            aria-labelledby="guido-text-label"
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="off"
+          ></textarea>
         </section>
 
         <section class="gabc-transcriber__pane" aria-labelledby="aretino-output-label">

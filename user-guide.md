@@ -30,7 +30,7 @@ The name alludes to Guido d'Arezzo (in Latin *Guido Aretinus*) — the spiritual
 ### Design Philosophy in Brief
 
 | Principle | What it means in practice |
-|||
+|---|---|
 | **Position = pitch** | The letter code determines which line or space the note occupies. |
 | **Semantic markers** | Episema, mora, etc. are suffix characters, not magic glyph files. |
 | **Separate text/verse lines** | `w:` lyric lines and `W:` verse lines are independently meaningful. |
@@ -141,7 +141,7 @@ The Guido is **character-level, manual typography** — the user "draws" with th
 **Aretino** implements the same notational tradition — the modernized Metz-Gothic transcription — as a **semantic, text-based format**. What this entails:
 
 | Aspect | Guido (TTF font) | Aretino (semantic format) |
-||||
+|---|---|---|
 | **Representation** | every variant of a notehead is a separate character | noteheads always mean the same thing; there are modifier characters |
 | **Virga, stemming** | placed by the user, always manually | **automatic**: the renderer places a stem on every local maximum, but can also be set manually |
 | **Descending connecting line** | separate key combination | **automatic**: the renderer draws it for every descent, adjusted by interval |
@@ -201,7 +201,7 @@ The three main building blocks:
 Body lines are classified by prefix:
 
 | Prefix | Meaning |
-|||
+|---|---|
 | `w:` | lyric syllables aligned under the preceding music line |
 | `W:` | free-flowing verse text, not note-aligned |
 | `n:` | music continuation after lyrics |
@@ -217,7 +217,7 @@ After a `w:` line, an unprefixed line continues the same lyric line. After a `W:
 Header lines begin with a percent sign (`%key: value`). The `%%` marker closes the header; it is optional, but recommended whenever a header is present.
 
 | Key | Description |
-|||
+|---|---|
 | `title` | Title, centered, bold. |
 | `subtitle` | Smaller centered subtitle below the title. |
 | `caption` | Caption, right-aligned, italic. |
@@ -250,7 +250,7 @@ The header is **optional** — you can start immediately with the melody line. U
 The clef is specified in parentheses: letter + line number.
 
 | Source | Clef | Note |
-||||
+|---|---|---|
 | `(g2)` | G-clef on line 2 | Treble clef |
 | `(f4)` | F-clef on line 4 | Bass clef |
 | `(c3)` | C-clef on line 3 | Small square C-sign (not a traditional alto clef). |
@@ -282,7 +282,7 @@ In bass clef, the same `c` on line 1 becomes E (because the clef changes, but th
 A **suffix character** immediately after the letter modifies the base form of the notehead:
 
 | Source | Name | Appearance |
-||||
+|---|---|---|
 | `d` | **punctum** | filled round notehead, no stem |
 | `d'` | **virga** | punctum with a downward stem on the left |
 | `dw` | **quilisma** | striped, zigzag-contour notehead |
@@ -312,7 +312,7 @@ Here `w` after `f` indicates that the `f` is a quilisma.
 Combinable suffixes after the notehead, **without a space**:
 
 | Suffix | Name | Meaning |
-||||
+|---|---|---|
 | `.` | **mora** | to the right of the notehead; indicates a long note |
 | `_` | **episema** | short horizontal line above the notehead. Consecutive episemata are merged by the system. |
 | `-` | **ictus** | small vertical line above the notehead (in the space) |
@@ -332,7 +332,7 @@ Modifiers can be combined freely: for example, `d._`, `d-~`, or `d's`.
 Notes written **consecutively without a space** form a ligature (neume). This is one of the most fundamental mechanisms in Aretino.
 
 | Source | Name | Meaning |
-||||
+|---|---|---|
 | `df` | **podatus** | ascending two-note figure, with an arc from lower to upper |
 | `fd` | **clivis** | descending two-note figure, with a calligraphic curved line |
 | `dfd` | **torculus** | three-note: up-down |
@@ -378,7 +378,7 @@ You may put spaces around `/`; they are ignored. The slash is still a visual sep
 ## 13. Bar Lines and Dividers
 
 | Source | Name | Function |
-||||
+|---|---|---|
 | `,` | short bar line (quarter bar) | small caesura, breath |
 | `;` | half bar line | end of a phrase section |
 | `\|` | full bar line | end of a sentence |
@@ -427,7 +427,7 @@ If you want a **fixed**-width gap (not flexible like `*`), use the `(sp)` direct
 The renderer breaks lines automatically: if a line doesn't fit, it moves the next note to a new line. Explicit line breaks can also be requested:
 
 | Source | Effect |
-|||
+|---|---|
 | `(z)` | forced line break, **justified** — the line fills to the margin |
 | `(Z)` | forced line break, **not** justified — the line is left-aligned |
 
@@ -445,7 +445,7 @@ Use the `(z)` form where the end of a phrase naturally calls for a line break.
 Accidental tokens use `b / n / #`.
 
 | Source | Name | Meaning |
-||||
+|---|---|---|
 | `(b)` | flat | a single flat at the height of the `i` note (line 3, B note) |
 | `(n)` | natural | cancels the preceding alteration |
 | `(#)` | sharp | raised by a semitone |
@@ -465,7 +465,7 @@ Accidentals are kept together with the following neume. They may also be written
 The key signature is placed after the clef. The renderer automatically displays it after the clef at the beginning of each new line, even if the clef is only written once at the start of the piece.
 
 | Source | Meaning |
-|||
+|---|---|
 | `(K:b)` | flat key signature at the default `i` height |
 | `(K:eb)` | flat on the `e` staff position |
 | `(K:b eb)` | multiple accidentals — separated by spaces |
@@ -495,7 +495,7 @@ The layout algorithm tries to place the text economically and aesthetically. Thi
 Useful lyric constructs:
 
 | Construct | Meaning |
-|||
+|---|---|
 | space | word boundary |
 | `-` | syllable boundary within a word |
 | `~` | non-breaking space inside one syllable |
@@ -624,7 +624,7 @@ w: Lord, have mer-cy up-on us!
 Wrapping one or more notes (or a whole neume) in `[` … `]` renders **typographical parentheses** around them. This is used for optional notes — for example, notes sung only on certain occasions.
 
 | Source | Meaning |
-|||
+|---|---|
 | `[a]` | single note in parentheses |
 | `[ag]` | ligature (neume) in parentheses |
 | `[a b C]` | multiple tokens in parentheses (spaces allowed) |
@@ -640,7 +640,7 @@ Wrapping one or more notes (or a whole neume) in `[` … `]` renders **typograph
 Music-line braces draw a visual mark above a span of notes. This is different from lyric text, where `{text}` means bold.
 
 | Source | Meaning |
-|||
+|---|---|
 | `{ g a b }` | curly overbrace above the notes |
 | `\arc{ g a b }` | smooth arc above the notes |
 | `\line{ g a b }` | straight line above the notes |

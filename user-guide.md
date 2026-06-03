@@ -664,6 +664,15 @@ A **label** is a short text displayed above a note or neume. Place a double-quot
 
 Labels can be any (optionally formatted) text; they are rendered above the corresponding note or ligature.
 
+## 21. Transposition
+
+Using the `%transpose` directive you can display the score transposed with the given semitones:
+
+```aretino
+%transpose: 2
+(g2) (Kb) f g a f. 
+```
+
 ## 22. Getting Help and Support
 
 If you have a question, find a bug, or want to share feedback, please use the **GitHub repository**:

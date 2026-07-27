@@ -277,6 +277,29 @@ w: A B c d e f g a b C D E F G
 So in treble clef, `c` is C on line 1, `g` is B on line 3, etc.
 In bass clef, the same `c` on line 1 becomes E (because the clef changes, but the line position does not).
 
+### Octave-Shift Markers (`^` and `v`)
+
+The letters run out at `A` (lowest) and `G` (highest). For the rare notes beyond either end, **prefix** the pitch letter with an octave-shift marker:
+
+- `^` raises the note by one octave (7 staff positions),
+- `v` lowers it by one octave.
+
+Markers stack, so `^^c` is two octaves above middle `c`. Ledger lines are drawn automatically.
+
+The scale simply continues past each end, so the minimal spelling is `^a ^b ^C …` above `G`, and `vg vf ve …` below `A`:
+
+```aretino
+(g2) g a b C D E F G ^a ^b ^C
+w: up and over the top
+```
+
+```aretino
+(g2) A vg vf ve vd
+w: down below the bottom
+```
+
+A marker only counts when it directly precedes a pitch letter — it may be glued inside a ligature, e.g. `g^a^bg`. A stray `^` or `v` with no note after it is ignored.
+
 ## 9. Notehead Types
 
 A **suffix character** immediately after the letter modifies the base form of the notehead:

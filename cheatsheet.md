@@ -8,6 +8,8 @@
 |---|---|
 | `a b c d e f g h i j k l m n` | 14 positions, low to high |
 | `A B … N` | raised octave (uppercase) |
+| `^d` | octave shift up (prefix, +7 positions); stacks: `^^d` |
+| `vd` | octave shift down (prefix); for notes beyond the letter range |
 
 | Notehead ||
 |---|---|

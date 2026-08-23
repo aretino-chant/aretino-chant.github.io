@@ -26,11 +26,16 @@ required: **Settings → Pages → Source: GitHub Actions**.
 
 ## Content
 
-- English pages (`/`) — `index.md`, `user-guide.md`, `cheatsheet.md`.
-- Hungarian pages (`/hu/`) — `hu/index.md`, `hu/user-guide.md`, `hu/cheatsheet.md`.
+- `index.md` — introduction and home page.
+- `user-guide.md`, `cheatsheet.md` — the format documentation.
+- `editor.md`, `gabc-transcription.md`, `guido-transcription.md` — the online
+  tools.
 
-The guides and the HU cheatsheet are copied from the upstream `aretino-chant`
-repo's `docs/` directory; keep them in sync when the source changes.
+The guide and the cheatsheet track the format reference kept upstream in
+[`packages/core/docs/syntax-reference.md`](https://github.com/aretino-chant/aretino-chant/blob/main/packages/core/docs/syntax-reference.md);
+they are written in this repo's own voice rather than copied verbatim, so when
+`@aretino-chant/core` is upgraded, diff that file between the two versions and
+fold any new syntax into both pages.
 
 ## License
 

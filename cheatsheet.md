@@ -51,24 +51,41 @@
 |---|---|
 | `[h]` `[hg]` `[h i j]` | typographical parentheses around note(s) or neume |
 | `{ g h i }` `\arc{ g h i }` `\line{ g h i }` | overbrace, arc, line above a span |
+| `\slur{ g h }` `\slurSolid{ g h }` | dashed / solid slur between noteheads |
 | `{ g h i }"1."` | spanning mark label |
 | `hg"Label"` | label above the note or neume |
 
 | Text | |
 |---|---|
-| `w: Ky-ri-e` | text line (hyphen = syllable boundary) |
+| `w: Ky-ri-e` | text line (hyphen = syllable boundary, drawn where there is room) |
+| `w: Ky=ri-e` | mandatory syllable boundary — hyphen always drawn |
+| `w: on-ly\-be-got-ten` | `\-` = literal hyphen inside one syllable |
+| `w: ro___.` | `_` = extender line; each further `_` reaches one more neume |
+| `w: some\_word` | `\_` = literal underscore inside one syllable |
 | multiple `w:` lines | multiple stanzas |
-| `W: Psalm verse text...` | verse line (free-flowing, not note-aligned) |
-| multiple `W:` lines | multiple verse lines |
+| `W: Psalm verse text...` | text block (free-flowing, not note-aligned) |
+| multiple `W:` lines | consecutive text blocks |
 | `n: g h i` | continue the previous music line |
-| unprefixed line after `w:` / `W:` | continue lyric / explicit verse line break |
+| unprefixed line after `w:` | continue the lyric line |
+| unprefixed line after `W:` | same block: a break in `psalm` / `stanza`, reflowed in `prose` / `rubric` |
 | `~` | non-breaking space inside one syllable |
-| `~~` | split display text from alignment text (e.g. `1.~~Ky-ri-e`) |
+| `~~` | in `w:`: split display text from alignment text (e.g. `1.~~Ky-ri-e`) |
+| `~~` | in `W:`: split a marker (verse number, `\R.`, role label) from the block body |
 | `(text)` | lyric label under the next bar line |
 | `[text]` `<text>` `{text}` | underline, italic, bold |
 | `\red{text}` `\color:green{text}` | colored text |
 | `\R` `\V` `+` `++` | responsory, versicle, dagger, double dagger |
 | `\X` | escape any special character |
+
+| Text blocks (`W:`) | |
+|---|---|
+| `W(psalm):` | default; source line breaks kept, 2 em indent |
+| `W(prose):` | reflowed as running text, no indent |
+| `W(stanza):` | hymn strophe; breaks kept, 1.5 em indent on overflow only |
+| `W(rubric):` | reflowed, 85% size, red |
+| `\|` | manual line break inside a block (`\\|` = literal pipe) |
+| `%option: textStyle=prose` | document-wide default style; `W(style):` overrides it |
+| `%option: textMaxIndent=8` | widest marker column, in em (default 8) |
 
 | Header | Meaning |
 |---|---|

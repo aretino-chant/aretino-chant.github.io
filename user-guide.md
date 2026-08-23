@@ -239,7 +239,7 @@ You can also use special characters, and formatting.
 w: O Lord, hear my hum-ble call to you!
 ```
 
-Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `textFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, and `staffGap`.
+Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `textFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, `staffGap`, `textStyle`, and `textMaxIndent`.
 
 The header is **optional** — you can start immediately with the melody line. Unknown header keys are kept in the parsed source but are not drawn.
 
@@ -520,11 +520,22 @@ Useful lyric constructs:
 | Construct | Meaning |
 |---|---|
 | space | word boundary |
-| `-` | syllable boundary within a word |
+| `-` | syllable boundary within a word — the hyphen is drawn only where the neumes leave room |
+| `=` | mandatory syllable boundary — like `-`, but the hyphen is always drawn |
+| `\-` | literal hyphen inside one syllable, e.g. `on-ly\-be-got-ten` |
+| `_` | extender line holding the syllable over its neume; each further `_` extends it over one more neume |
+| `\_` | literal underscore inside one syllable |
 | `~` | non-breaking space inside one syllable |
 | `~~` | display text plus separate alignment text |
 | `*` | literal verse-division asterisk |
 | `(text)` | label centered under the next bar line |
+
+Extender underscores follow the syllable they extend: `ro_` holds `ro` over its own neume, `ro__` reaches through the next neume, `ro___` through the next two. Punctuation written after the underscores is placed at the far end of the line.
+
+```aretino
+(g2) g g g g
+w: ro___.
+```
 
 ### Multiple Stanzas
 
@@ -536,9 +547,9 @@ w: Vic-ti-mae pas-cha-li lau-des
 w: Praise to the Pas-chal Vic-tim now.
 ```
 
-### Psalm Verses (`W:`)
+### Text Blocks and Psalm Verses (`W:`)
 
-Use `W:` for psalm-verse style text that should flow freely instead of syllable-by-syllable note alignment. It automatically indents explicit and automatic line breaks. Formatting directives can be used as well.
+Use `W:` for text that flows freely instead of being aligned syllable-by-syllable to notes — psalm verses, hymn stanzas, rubrics, spoken instructions. A `W:` line opens a **text block**: unprefixed lines that follow belong to the same block, and consecutive blocks stack until a blank line ends the section. Formatting directives work here just as they do in `w:` lines.
 
 ```aretino
 (g2) f g a f. , ga g f d_c_ , f ga gf f. ||
@@ -547,6 +558,69 @@ W: Glory to the {Father} and to the [Son] *
 and to the Holy Spirit.
 W: As it was in the beginning, is now and ever shall be * 
 world without end. Amen.
+```
+
+#### Block Styles
+
+Every block is set in a **named style**, chosen in parentheses before the colon. A bare `W:` means `psalm`, so scores written before styles existed render exactly as they did. An unrecognized name falls back to the default rather than failing the parse.
+
+| Style | Source line breaks | Break indent | Wrap indent | Typical use |
+|---|---|---|---|---|
+| `psalm` | kept | 2 em | 2 em | the default — psalm verses, where each verse start stays visible |
+| `prose` | reflowed | 0 | 0 | an instruction or note set as running text |
+| `stanza` | kept | 0 | 1.5 em | a hymn strophe; only an overflowing line is indented |
+| `rubric` | reflowed | 0 | 0 | 85% size, red |
+
+In `prose` and `rubric` a line break in the source is only an editing convenience — the block reflows to the width of the column. In `psalm` and `stanza` it is kept as a break.
+
+```aretino
+(g2) g a b g. ab a g e_d_ , g ab ag g. ||
+w: Al-le-lu-ia, al-le-lu-ia, al-le-lu-ia.
+W(rubric): The cantor sings the verse.
+W: Glory to the Father and to the Son *
+and to the Holy Spirit.
+W(prose): During the communion the people may sing,
+or the cantor may sing a psalm.
+```
+
+Each style also carries its own line height and its own spacing above and below. Where two styles meet, the seam takes the larger of what the block above claims below itself and what the block below claims above itself — so a rubric opens air around itself without the neighboring styles having to know that it exists.
+
+To choose the default for a whole score, set the `textStyle` option; a `W(style):` marker on an individual block always wins over it.
+
+```aretino
+%option: textStyle=prose
+%%
+W: This block is prose, because the document default says so.
+W(psalm): This one asks for psalm style and gets it.
+```
+
+#### Markers: Stanza Numbers and Role Labels
+
+Inside a text block, `~~` separates a **marker** — a stanza number, a `\R.`, a role label — from the body of the block. The marker hangs at the left margin, and the body starts at a text column shared by every block of the same style in a row, so `1.` and `10.` line up down a hymn:
+
+```aretino
+W(stanza): 1.~~O come, o come, Emmanuel,
+and ransom captive Israel,
+W(stanza): 10.~~O come, o come, Adonai,
+who in thy majesty didst give the law.
+```
+
+The column is shared only within a run of blocks of one style, so a wide role label in a neighboring block cannot drag a hymn's numbers across the page. Bind a multi-word marker into one unit with `~`: `1.~First` is an ordinary non-breaking pair, while `1.~~First` is a marker plus a body.
+
+```aretino
+W(prose): Cantor~and~people:~~During the communion the people may sing.
+```
+
+A marker wider than `textMaxIndent` (8 em by default, and never more than 30% of the available width) overhangs the column; if no word of the body fits beside it, the body starts at the column on the next line.
+
+In `w:` lyric lines `~~` means something else — it splits a syllable's display text from its alignment text; see [Stanza Numbering and Alignment Text](#stanza-numbering-and-alignment-text) below.
+
+#### Manual Line Break (`|`)
+
+`|` breaks a line inside a text block, exactly as a line break in the source does — so in `prose` and `rubric`, where source line breaks are reflowed away, it is the break that survives. Spaces around it are trimmed, and inline formatting may span it. Write `\|` for a literal pipe.
+
+```aretino
+W(prose): <The people stand | and answer together.>
 ```
 
 ### Multiple Words on One Note (`~`)
@@ -583,6 +657,8 @@ w: Non ti-bi oc-cúr-rit Pe-trus,
 ### Stanza Numbering and Alignment Text
 
 To avoid disrupting text layout with stanza numbers, R., V., or other markings, use `~~`. The text before `~~` is displayed as a prefix, while the text after `~~` is the part used for horizontal alignment. For the first stanza, manual spacing may still be needed.
+
+This is the `w:` lyric-line use of `~~`. In a `W:` text block the same sign separates a [marker](#markers-stanza-numbers-and-role-labels) from the body of the block, which is what a psalm verse or a hymn stanza usually wants.
 
 ```aretino
 (g2) == g g a g gC C. ' Ct
@@ -667,10 +743,18 @@ Music-line braces draw a visual mark above a span of notes. This is different fr
 | `{ g a b }` | curly overbrace above the notes |
 | `\arc{ g a b }` | smooth arc above the notes |
 | `\line{ g a b }` | straight line above the notes |
+| `\slur{ g a b }` | dashed slur drawn between the noteheads |
+| `\slurSolid{ g a b }` | the same, drawn solid |
 | `{ g a b }"1."` | overbrace with a label |
 
 ```aretino
 (g2) { g a b C }"melisma" \arc{ g a b } \line{ C D E F }
+```
+
+Unlike the marks above, which are drawn over the span, a slur connects the noteheads themselves:
+
+```aretino
+(g2) \slur{f A} \slurSolid{A g}
 ```
 
 Spanning marks can cross automatic or explicit system breaks; the renderer continues the mark on the next row.

@@ -2,25 +2,26 @@
 
 | Clefs ||
 |---|---|
-| `(g2)` `(f4)` `(c3)` | G, F, C clef |
+| `(g2)` `(f4)` `(c3)` | G, F, C clef (letter + staff line) |
 
 | Pitch ||
 |---|---|
-| `a b c d e f g h i j k l m n` | 14 positions, low to high |
-| `A B … N` | raised octave (uppercase) |
-| `^d` | octave shift up (prefix, +7 positions); stacks: `^^d` |
-| `vd` | octave shift down (prefix); for notes beyond the letter range |
+| `A B c d e f g a b C D E F G` | the 14 staff positions, low to high |
+| `c d e f g a b` | middle octave (lowercase) |
+| `A B` `C D E F G` | outside the middle octave (uppercase) |
+| `^a ^b ^C` | above `G`: octave-shift prefix, +7 positions; stacks (`^^c`) |
+| `vg vf ve` | below `A`: octave-shift prefix, −7 positions |
 
 | Notehead ||
 |---|---|
-| `d`, `d'`, `dt` | punctum, virga, tenor |
-| `dw`, `ds` | quilisma, liquescent/small note |
+| `d`, `d'` | punctum, virga |
+| `dw`, `dt` | quilisma, tenor note |
 
 | Suffix ||
 |---|---|
 | `d.`, `d_`, `d-`, `d~` | mora, episema, ictus, plica |
-| `ds` | liquescent/small note; combines with other shapes |
-| `df/gh`, `df / gh` | `/` = visual neume separator |
+| `ds` | small (cue-sized) note; a modifier, so it combines with any shape |
+| `dfd/gab`, `dfd / gab` | `/` = visual neume separator |
 
 | Dividers / bars | |
 |---|---|
@@ -42,18 +43,20 @@
 
 | Accidentals & key signature | |
 |---|---|
-| `(b)` `(n)` `(#)` | flat, natural, sharp at default `i` height |
-| `(ib)` `(in)` `(i#)` | flat, natural, sharp at explicit pitch |
-| `(K:F# C#)` | key signature (repeats at the start of every line) |
-| `(K:)` | clear key signature |
+| `(b)` `(n)` `(#)` | flat, natural, sharp at the default reciting position `b` |
+| `(f#)` `(cn)` `(eb)` | prefix the target pitch letter to place it elsewhere |
+| `(f#) f` | directive before a note applies to that note |
+| `(K:f# C#)` | key signature (repeats at the start of every line) |
+| `(Kb)` `(Kbb)` `(K#)` `(K##)` | shortcuts: one/two flats, one/two sharps |
+| `(K:)` `(K)` | clear key signature |
 
 | Decorations | |
 |---|---|
-| `[h]` `[hg]` `[h i j]` | typographical parentheses around note(s) or neume |
-| `{ g h i }` `\arc{ g h i }` `\line{ g h i }` | overbrace, arc, line above a span |
-| `\slur{ g h }` `\slurSolid{ g h }` | dashed / solid slur between noteheads |
-| `{ g h i }"1."` | spanning mark label |
-| `hg"Label"` | label above the note or neume |
+| `[a]` `[ag]` `[a b C]` | typographical parentheses around note(s) or neume |
+| `{ g a b }` `\arc{ g a b }` `\line{ g a b }` | overbrace, arc, line above a span |
+| `\slur{ f A }` `\slurSolid{ A g }` | dashed / solid slur between noteheads |
+| `{ g a b }"1."` | spanning mark label |
+| `ag"Label"` | label above the note or neume |
 
 | Text | |
 |---|---|
@@ -65,12 +68,13 @@
 | multiple `w:` lines | multiple stanzas |
 | `W: Psalm verse text...` | text block (free-flowing, not note-aligned) |
 | multiple `W:` lines | consecutive text blocks |
-| `n: g h i` | continue the previous music line |
+| `n: g a b` | continue the previous music line |
 | unprefixed line after `w:` | continue the lyric line |
 | unprefixed line after `W:` | same block: a break in `psalm` / `stanza`, reflowed in `prose` / `rubric` |
 | `~` | non-breaking space inside one syllable |
 | `~~` | in `w:`: split display text from alignment text (e.g. `1.~~Ky-ri-e`) |
 | `~~` | in `W:`: split a marker (verse number, `\R.`, role label) from the block body |
+| `*` | flex mark — a verse division, kept as a literal `*` |
 | `(text)` | lyric label under the next bar line |
 | `[text]` `<text>` `{text}` | underline, italic, bold |
 | `\red{text}` `\color:green{text}` | colored text |
@@ -86,10 +90,12 @@
 | `\|` | manual line break inside a block (`\\|` = literal pipe) |
 | `%option: textStyle=prose` | document-wide default style; `W(style):` overrides it |
 | `%option: textMaxIndent=8` | widest marker column, in em (default 8) |
+| `%option: textMarkerAlign=right` | markers flush against the text column instead of the left margin |
 
 | Header | Meaning |
 |---|---|
 | `%title: Title` | title; other drawn headers: subtitle, caption, rubric, indent |
+| `%transpose: 2` | render transposed by a signed number of semitones |
 | `%option: lyricDistance=0.5` | renderer option; repeat one option per line |
 | `%%` | end of header |
 

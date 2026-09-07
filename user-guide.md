@@ -239,7 +239,7 @@ You can also use special characters, and formatting.
 w: O Lord, hear my hum-ble call to you!
 ```
 
-Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `textFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, `staffGap`, `textStyle`, and `textMaxIndent`.
+Use either `name=value` or `name: value` for `%option:` headers. Numbers are parsed as numbers; booleans accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. Common source-level options include `dpi`, `staffSpaceMm`, `lyricSize`, `textFont`, `noteSpacing`, `lyricDistance`, `hideRepeatClef`, `canvasHeight`, `staffGap`, `textStyle`, `textMaxIndent`, and `textMarkerAlign`.
 
 The header is **optional** — you can start immediately with the melody line. Unknown header keys are kept in the parsed source but are not drawn.
 
@@ -382,7 +382,7 @@ d f g | df g | dfg
 The renderer automatically places a virga stem on every ligature peak (local maximum) — this need not be marked manually. For example, with `dfd` (torculus), the `f` (peak) is automatically drawn with a virga stem.
 
 ```aretino
-dfd ihgfghghjijigh
+(g2) dfd bagfgagaCbCbga
 ```
 
 ## 12. Neume-Separator Gap
@@ -478,7 +478,7 @@ The letter before the accidental gives the staff position: `(eb)` = flat on `e`,
 ### Example
 
 ```aretino
-(g2) (bb) (sp) (bn) (sp) (b#) (sp) : a (Cb) aba fga. g(bb)aba
+(g2) (bb) (sp) (bn) (sp) (b#) (sp) | a (Cb) aba fga. g(bb)aba
 ```
 
 Accidentals are kept together with the following neume. They may also be written inside a neume, and an accidental remains active for the same staff position until the next bar line or a replacement accidental. If a measure wraps to a new system, the renderer repeats the active accidental before the first affected neume on the new system.
@@ -613,6 +613,19 @@ W(prose): Cantor~and~people:~~During the communion the people may sing.
 
 A marker wider than `textMaxIndent` (8 em by default, and never more than 30% of the available width) overhangs the column; if no word of the body fits beside it, the body starts at the column on the next line.
 
+##### Marker Alignment
+
+Markers hang flush left by default. Set `textMarkerAlign=right` to push them flush against the text column instead, so that a short `1.` ends where a long `Refrain.` ends:
+
+```aretino
+%option: textMarkerAlign=right
+%%
+W(stanza): 1.~~O come, O come, Emmanuel,
+W(stanza): Refrain.~~Rejoice! Rejoice! Emmanuel
+```
+
+The widest marker of the run still starts at the left margin, and a marker that overhangs a capped column starts there too.
+
 In `w:` lyric lines `~~` means something else — it splits a syllable's display text from its alignment text; see [Stanza Numbering and Alignment Text](#stanza-numbering-and-alignment-text) below.
 
 #### Manual Line Break (`|`)
@@ -628,7 +641,7 @@ W(prose): <The people stand | and answer together.>
 If multiple words need to be written **on a single note** — for example, under a reciting tenor note — connect them with `~` without spaces. It renders as a non-breaking space, so the whole unit stays attached to one neume:
 
 ```aretino
-(g2) f g at g a :
+(g2) f g at g a |
 w: God is Lord,~King~of~all, praise him!
 ```
 

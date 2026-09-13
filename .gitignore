@@ -18,3 +18,4 @@ coverage/
 *.zip
 *.tar.gz
 *.tgz
+.claude/
